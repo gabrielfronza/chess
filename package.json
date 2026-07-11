@@ -1,0 +1,16 @@
+{
+  "name": "chess-tournament-platform",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.13 <23"
+  },
+  "scripts": {
+    "dev:mobile": "npm --prefix apps/mobile run start",
+    "dev:api": "npm --prefix apps/api run start:dev",
+    "build": "npm --prefix apps/api run build && npm run typecheck:mobile",
+    "typecheck:mobile": "cd apps/mobile && npx tsc --noEmit",
+    "test": "npm --prefix apps/api test",
+    "lint": "npm --prefix apps/api run lint"
+  }
+}

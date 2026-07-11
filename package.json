@@ -10,7 +10,15 @@
     "dev:api": "npm --prefix apps/api run start:dev",
     "build": "npm --prefix apps/api run build && npm run typecheck:mobile",
     "typecheck:mobile": "cd apps/mobile && npx tsc --noEmit",
-    "test": "npm --prefix apps/api test",
-    "lint": "npm --prefix apps/api run lint"
+    "test": "npm run test:unit",
+    "test:unit": "npm --prefix apps/api run test -- --runInBand",
+    "test:e2e": "playwright test",
+    "lint": "npm --prefix apps/api run lint:check",
+    "lint:fix": "npm --prefix apps/api run lint",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "husky": "^9.1.7"
   }
 }

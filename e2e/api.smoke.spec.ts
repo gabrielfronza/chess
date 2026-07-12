@@ -1,8 +1,11 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from "@playwright/test";
 
-test('API is reachable', async ({ request }) => {
-  const response = await request.get('/');
+test("API health endpoint is reachable", async ({ request }) => {
+  const response = await request.get("/api/v1/health");
 
   expect(response.ok()).toBe(true);
-  await expect(response.text()).resolves.toBe('Hello World!');
+  await expect(response.json()).resolves.toMatchObject({
+    status: "ok",
+    version: "0.1.0",
+  });
 });

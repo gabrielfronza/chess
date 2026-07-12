@@ -1,9 +1,12 @@
+# Long-form documentation is reviewed manually to avoid unrelated reflow.
 docs/
-e2e/
-playwright.config.ts
+
+# Generated framework documentation and agent instruction files keep upstream formatting.
 apps/api/README.md
 apps/mobile/AGENTS.md
 apps/mobile/CLAUDE.md
+
+# Generated outputs and reports.
 **/dist/
 **/coverage/
 playwright-report/

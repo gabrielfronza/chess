@@ -10,5 +10,4 @@ playwright-report/
 test-results/
 .expo/
 apps/mobile/web-build/
-apps/mobile/dist/
 *.log

@@ -58,8 +58,18 @@ npx nx build mobile
 npm run test:cov --prefix apps/api
 npm run test:cov --prefix apps/mobile
 
+# Start the project-scoped PostgreSQL database
+npm run db:up
+
+# Apply database migrations and run currently available seeds
+npm run db:migrate
+npm run db:seed
+
 # Start both applications
 npm run dev
+
+# Verify the database migration lifecycle against chess_app_test
+npm run test:db
 
 # Run the current Playwright API smoke test
 npm run test:e2e
@@ -68,6 +78,21 @@ npm run test:e2e
 CI uses `nx affected` to run lint, unit tests with coverage, and builds only for projects affected by a pull request or push. The manual E2E workflow currently runs an API smoke test; browser journeys across the Expo Web UI and API are delivered in STORY-017.
 
 The API and mobile coverage commands produce HTML reports at `apps/api/coverage/lcov-report/index.html` and `apps/mobile/coverage/lcov-report/index.html`. When those tests run in CI, the reports are available for 14 days as `api-coverage-report` and `mobile-coverage-report` workflow artifacts.
+
+## Database
+
+STORY-002 uses Docker Compose, PostgreSQL, and TypeORM migrations. Local Compose resources use the `chess_app` project name, the `chess_app_dev` database for development, and `chess_app_test` for integration tests. The database container does not set a fixed `container_name`, and the host port is configurable through `POSTGRES_PORT`.
+
+```bash
+npm run db:up
+npm run db:migrate
+npm run db:seed
+npm run test:db
+npm run db:rollback
+npm run db:down
+```
+
+`nx serve api` depends on `api:db-migrate`, so local API startup applies pending migrations before NestJS starts. Production startup never runs migrations; deploys must run `api:db-migrate` as an explicit release step before starting the new application version.
 
 ## Running the backlog with agents
 

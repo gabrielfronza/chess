@@ -1,6 +1,6 @@
 # STORY-002 — PostgreSQL and TypeORM foundation
 
-**Status:** ready  
+**Status:** done
 **Dependencies:** STORY-001
 
 ## Story

@@ -33,7 +33,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright E2E tests
-        run: npm run test:e2e
+        run: npx nx e2e e2e
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}

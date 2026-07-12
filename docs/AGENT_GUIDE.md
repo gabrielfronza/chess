@@ -27,3 +27,11 @@ When finished, report: changed files, decisions made, commands run, test results
 - External errors have timeouts, handling, and safe logs.
 - New endpoints include authorization, validation, and documented request/response behavior when applicable.
 - Repeatable operations are idempotent when applicable.
+
+## Mobile testing boundaries
+
+- Keep Expo Router navigation smoke tests shallow. Route smoke tests should prove that route modules render the expected route-level text and placeholders, not re-test every reusable UI component below them.
+- In `apps/mobile/test/navigation.smoke.test.tsx`, mock shared design-system components such as `AppScreen`, `AppButton`, `PlaceholderCard`, `EmptyState`, and `LoadingState`. Their real behavior belongs in focused component unit tests under `apps/mobile/components`.
+- When a route has enough unique content or behavior to deserve direct coverage, add a dedicated screen test such as `apps/mobile/test/welcome-screen.test.tsx` and mock unrelated child components there.
+- Avoid rendering a full route plus all shared UI children in a smoke test. Under `jest --coverage --runInBand`, that can turn a route smoke test into a slow integration test and cause per-test timeout flakes.
+- Do not increase Jest timeouts to hide these failures. Prefer smaller test boundaries, focused mocks, and separate component tests.

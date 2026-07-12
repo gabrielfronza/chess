@@ -12,6 +12,15 @@
 - Stripe Checkout/Payment Intent adds credits; signed webhooks confirm credits idempotently.
 - Asynchronous jobs handle result synchronization and integration retries.
 
+## Incremental domain ownership
+
+- The architecture evolves through vertical story slices. Each story owns every artifact required for its behavior: entities, migrations, seeds, types, interfaces, DTOs, validation schemas, shared contracts, events, adapters, and tests.
+- Foundation stories create tooling, package boundaries, and extension points only. They do not predefine speculative domain models or contracts for later stories.
+- A type or interface remains local to its owning module until another application or package has a concrete need for it.
+- `packages/contracts` contains only contracts that cross a real process or package boundary, such as API request/response schemas used by both the API and mobile app. Internal service interfaces and persistence types stay in their owning module.
+- Shared contracts are added and versioned by the story that first needs the cross-boundary integration. The package must not become a catch-all domain model.
+- Refactoring an established local type into a shared contract requires an actual second consumer and compatibility tests.
+
 ## Monorepo startup and migrations
 
 - Root commands are Nx targets. `nx serve api` and `nx serve mobile` are the canonical development entry points; a root `dev` target may run both in parallel.
@@ -19,6 +28,8 @@
 - Tests that require PostgreSQL depend on an isolated test-database migration target.
 - Production application startup never runs migrations. CI/CD runs `api:db-migrate` once as an explicit release step before deploying the new application version.
 - Migrations must be backward-compatible with the currently deployed application so rolling deployments and rollback remain safe.
+- Database objects follow the same incremental ownership rule: each story owns the entities, constraints, indexes, migrations, and optional idempotent seeds required for its scope. The database foundation does not pre-create the full domain model.
+- Local Compose resources use the `chess_app` project namespace, project-specific development/test database names, and no fixed `container_name`.
 
 ## API modules
 

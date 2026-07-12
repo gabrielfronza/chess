@@ -1,10 +1,10 @@
 # Backlog
 
-Initial status for every story: `ready`, subject to the declared dependencies.
+Stories begin as `ready`, subject to their declared dependencies. Their individual files are the source of truth for current status.
 
 | ID | Title | Depends on |
 |---|---|---|
-| 001 | Quality, configuration, and contracts | — |
+| 001 | Quality, configuration, and contracts (`done`) | — |
 | 002 | Database and model | 001 |
 | 003 | Mobile shell and navigation | 001 |
 | 004 | Auth0 authentication | 002, 003 |

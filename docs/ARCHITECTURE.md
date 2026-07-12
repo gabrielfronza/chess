@@ -4,7 +4,7 @@
 
 - Modular NestJS monolith for the backend. This is the simplest option for preserving registration and wallet transactions in the MVP.
 - Nx orchestrates the monorepo so applications and shared packages use one project graph, consistent targets, and affected-only CI execution.
-- PostgreSQL as the source of truth; TypeORM will be introduced in the foundation, with schema evolution handled exclusively through versioned migrations and `synchronize: false` outside tests.
+- PostgreSQL as the source of truth; STORY-002 introduces TypeORM, with schema evolution handled exclusively through versioned migrations and `synchronize: false` outside tests.
 - Monetary values stored in USD cents, never as floating-point values.
 - Immutable wallet ledger. Balances are derived or updated only within database transactions.
 - Auth0 issues identities; the API maintains profiles, roles, and account states.
@@ -24,9 +24,9 @@
 ## Monorepo startup and migrations
 
 - Root commands are Nx targets. `nx serve api` and `nx serve mobile` are the canonical development entry points; a root `dev` target may run both in parallel.
-- The local API serve target depends on `api:db-migrate`, so a developer starts against the latest schema.
-- Tests that require PostgreSQL depend on an isolated test-database migration target.
-- Production application startup never runs migrations. CI/CD runs `api:db-migrate` once as an explicit release step before deploying the new application version.
+- Starting with STORY-002, the local API serve target will depend on `api:db-migrate`, so a developer starts against the latest schema.
+- Starting with STORY-002, tests that require PostgreSQL will depend on an isolated test-database migration target.
+- Production application startup never runs migrations. Starting with STORY-002, CI/CD will run `api:db-migrate` once as an explicit release step before deploying the new application version.
 - Migrations must be backward-compatible with the currently deployed application so rolling deployments and rollback remain safe.
 - Database objects follow the same incremental ownership rule: each story owns the entities, constraints, indexes, migrations, and optional idempotent seeds required for its scope. The database foundation does not pre-create the full domain model.
 - Local Compose resources use the `chess_app` project namespace, project-specific development/test database names, and no fixed `container_name`.

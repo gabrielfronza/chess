@@ -1,6 +1,6 @@
 # STORY-001 — Quality, configuration, and contracts
 
-**Status:** in_progress
+**Status:** done
 **Dependencies:** none
 
 ## Story
@@ -32,7 +32,7 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 - The pull-request pipeline runs lint without changing files, unit tests, and builds for both apps.
 - The `quality-gate` check can be configured as required in the `main` branch protection rule.
 - The E2E pipeline can be started manually in GitHub Actions and publishes the Playwright report.
-- At least one Playwright E2E test validates the running application.
+- At least one Playwright test validates the running API. Browser journeys through Expo Web and the API are owned by STORY-017, after the relevant user flows exist.
 
 ## Verification
 

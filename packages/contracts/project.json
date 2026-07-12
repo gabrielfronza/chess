@@ -1,0 +1,28 @@
+{
+  "name": "contracts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "root": "packages/contracts",
+  "sourceRoot": "packages/contracts/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "command": "npm run build",
+      "outputs": ["{projectRoot}/dist"],
+      "options": { "cwd": "packages/contracts" }
+    },
+    "lint": {
+      "command": "npm run lint",
+      "options": { "cwd": "packages/contracts" }
+    },
+    "lint-fix": {
+      "command": "npm run typecheck",
+      "options": { "cwd": "packages/contracts" }
+    },
+    "test": {
+      "command": "npm run test",
+      "outputs": ["{projectRoot}/coverage"],
+      "options": { "cwd": "packages/contracts" }
+    }
+  },
+  "tags": ["scope:shared", "type:library"]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "workspace-tools",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "root": ".",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "command": "node -e \"console.log('Workspace tooling has no build output')\""
+    },
+    "test": {
+      "command": "node -e \"console.log('Workspace tooling has no unit tests')\""
+    },
+    "lint": {
+      "command": "npm run format:check"
+    },
+    "lint-fix": {
+      "command": "npm run format"
+    }
+  },
+  "tags": ["scope:workspace", "type:tooling"]
+}

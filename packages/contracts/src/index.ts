@@ -1,4 +1,2 @@
-export type HealthResponse = {
-  status: 'ok';
-  service: 'chess-api';
-};
+// Cross-application contracts are added by the first story with a concrete consumer.
+export {};

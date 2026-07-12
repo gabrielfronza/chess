@@ -9,7 +9,7 @@ As a team, we want to prove the critical flow in staging and have a repeatable r
 
 ## Scope
 
-- E2E journey: login → onboarding → Lichess → free tournament registration → result → history.
+- Browser E2E journey through Expo Web and the API: login → onboarding → Lichess → free tournament registration → result → history.
 - Priority failure scenarios: unavailable Lichess, repeated registration, and interrupted result synchronization.
 - Staging builds, migrations, safe seed, backup/restore, and a release/rollback checklist.
 - Document sandbox accounts and separate secrets by environment.

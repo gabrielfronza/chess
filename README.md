@@ -7,7 +7,7 @@ MVP foundation for paid chess tournaments. The platform manages users, registrat
 - `apps/mobile`: React Native application with Expo and TypeScript, registered as an Nx project.
 - `apps/api`: NestJS API with TypeScript, registered as an Nx project.
 - `packages/contracts`: cross-application contracts added incrementally by the story that introduces a concrete shared consumer; Story 01 creates only the package boundary and tooling.
-- Nx is the root orchestrator for serve, build, lint, test, and E2E targets. Database-migration targets are added in STORY-002.
+- Nx is the root orchestrator for serve, build, lint, test, and E2E targets. Database-migration targets will be added in STORY-002.
 - `docs/IMPLEMENTATION_PLAN.md`: MVP implementation order.
 - `docs/stories`: executable backlog, one story per file.
 
@@ -57,11 +57,11 @@ npx nx build mobile
 # Start both applications
 npm run dev
 
-# Run Playwright E2E tests
+# Run the current Playwright API smoke test
 npm run test:e2e
 ```
 
-CI uses `nx affected` to run lint, unit tests, and builds only for projects affected by a pull request or push.
+CI uses `nx affected` to run lint, unit tests, and builds only for projects affected by a pull request or push. The manual E2E workflow currently runs an API smoke test; browser journeys across the Expo Web UI and API are delivered in STORY-017.
 
 ## Running the backlog with agents
 

@@ -54,6 +54,10 @@ npm run build
 npx nx test api
 npx nx build mobile
 
+# Run unit tests with the enforced 90% coverage threshold
+npm run test:cov --prefix apps/api
+npm run test:cov --prefix apps/mobile
+
 # Start both applications
 npm run dev
 
@@ -61,7 +65,9 @@ npm run dev
 npm run test:e2e
 ```
 
-CI uses `nx affected` to run lint, unit tests, and builds only for projects affected by a pull request or push. The manual E2E workflow currently runs an API smoke test; browser journeys across the Expo Web UI and API are delivered in STORY-017.
+CI uses `nx affected` to run lint, unit tests with coverage, and builds only for projects affected by a pull request or push. The manual E2E workflow currently runs an API smoke test; browser journeys across the Expo Web UI and API are delivered in STORY-017.
+
+The API and mobile coverage commands produce HTML reports at `apps/api/coverage/lcov-report/index.html` and `apps/mobile/coverage/lcov-report/index.html`. When those tests run in CI, the reports are available for 14 days as `api-coverage-report` and `mobile-coverage-report` workflow artifacts.
 
 ## Running the backlog with agents
 

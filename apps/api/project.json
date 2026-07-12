@@ -25,7 +25,7 @@
       "options": { "cwd": "apps/api" }
     },
     "test": {
-      "command": "npm run test -- --runInBand",
+      "command": "npm run test:cov -- --runInBand",
       "outputs": ["{projectRoot}/coverage"],
       "options": { "cwd": "apps/api" }
     }

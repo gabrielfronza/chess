@@ -29,10 +29,24 @@
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
     "lint:fix": "expo lint --fix",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:cov": "jest --coverage --runInBand"
   },
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "App.tsx",
+      "**/*.{ts,tsx}",
+      "!**/*.test.{ts,tsx}",
+      "!index.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }

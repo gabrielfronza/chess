@@ -30,6 +30,7 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 - The health check returns the version and status without exposing secrets.
 - Every commit runs lint with automatic fixes before it is created.
 - The pull-request pipeline runs lint without changing files, unit tests, and builds for both apps.
+- API and mobile unit-test coverage is measured by CI and cannot fall below 90% for statements, functions, or lines. Branch coverage is reported for review; NestJS's generated decorator helpers are not treated as application branches.
 - The `quality-gate` check can be configured as required in the `main` branch protection rule.
 - The E2E pipeline can be started manually in GitHub Actions and publishes the Playwright report.
 - At least one Playwright test validates the running API. Browser journeys through Expo Web and the API are owned by STORY-017, after the relevant user flows exist.

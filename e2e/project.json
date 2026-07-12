@@ -1,0 +1,15 @@
+{
+  "name": "e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "root": "e2e",
+  "sourceRoot": "e2e",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "command": "npx playwright test",
+      "cache": false
+    }
+  },
+  "implicitDependencies": ["api"],
+  "tags": ["scope:e2e", "type:test"]
+}

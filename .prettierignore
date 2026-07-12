@@ -1,0 +1,8 @@
+docs/
+apps/api/README.md
+apps/mobile/AGENTS.md
+apps/mobile/CLAUDE.md
+**/dist/
+**/coverage/
+playwright-report/
+test-results/

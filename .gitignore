@@ -4,9 +4,11 @@
 !.env.example
 node_modules/
 dist/
+.nx/
 coverage/
 playwright-report/
 test-results/
 .expo/
 apps/mobile/web-build/
+apps/mobile/dist/
 *.log

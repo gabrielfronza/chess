@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
 
@@ -10,4 +10,8 @@ async function bootstrap() {
 
   await app.listen(config.getOrThrow<number>('PORT'));
 }
-void bootstrap();
+
+/* istanbul ignore next -- process entrypoint; bootstrap is tested directly. */
+if (require.main === module) {
+  void bootstrap();
+}

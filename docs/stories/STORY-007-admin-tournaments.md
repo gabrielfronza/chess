@@ -12,7 +12,7 @@ As an administrator, I want to create, edit, publish, and cancel manually manage
 - Administrative CRUD with name, description, schedule, duration, time control, rounds, fee, prize pool, rules, and Lichess tournament ID.
 - State machine with DRAFT, PUBLISHED, REGISTRATION_CLOSED, RUNNING, FINISHED, and CANCELLED.
 - Participant list and audit trail.
-- In this story, the administrative interface may be Swagger/API.
+- In this story, the administrative interface may be API-only.
 
 ## Acceptance criteria
 

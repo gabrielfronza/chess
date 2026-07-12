@@ -16,7 +16,7 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 - Configure variables validated at API startup.
 - Create an empty shared-contracts package boundary and its build/test tooling without speculative domain types.
 - Add shared contracts only in the later story that introduces the first concrete cross-application consumer.
-- Add OpenAPI and the `GET /api/v1/health` endpoint.
+- Add the `GET /api/v1/health` endpoint.
 - Add required pull-request CI with lint, build, and unit tests.
 - Configure Playwright and an E2E pipeline that can only be started manually.
 

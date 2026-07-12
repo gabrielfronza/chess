@@ -25,5 +25,5 @@ When finished, report: changed files, decisions made, commands run, test results
 - TypeScript compiles without errors.
 - Relevant lint checks and tests pass.
 - External errors have timeouts, handling, and safe logs.
-- New endpoints include authorization, validation, and OpenAPI documentation.
+- New endpoints include authorization, validation, and documented request/response behavior when applicable.
 - Repeatable operations are idempotent when applicable.

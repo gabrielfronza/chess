@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { HealthResponseDto } from './health-response.dto';
+import { HealthResponse } from './health-response';
 
 @Injectable()
 export class HealthService {
   constructor(private readonly config: ConfigService) {}
 
-  getHealth(): HealthResponseDto {
+  getHealth(): HealthResponse {
     return {
       status: 'ok',
       version: this.config.getOrThrow<string>('APP_VERSION'),

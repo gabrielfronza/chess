@@ -34,7 +34,7 @@ In another terminal:
 npm run dev:mobile
 ```
 
-The API health endpoint responds at `http://localhost:3000/api/v1/health`. Swagger UI is available at `http://localhost:3000/docs`, and the OpenAPI document at `http://localhost:3000/docs/openapi.json`.
+The API health endpoint responds at `http://localhost:3000/api/v1/health`.
 
 Environment variables are documented in `.env.example`. STORY-001 validates `NODE_ENV`, `APP_VERSION`, and `PORT`; variables owned by later stories are activated when those stories are implemented.
 

@@ -28,6 +28,10 @@
       "command": "npm run test:cov",
       "outputs": ["{projectRoot}/coverage"],
       "options": { "cwd": "apps/mobile" }
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "options": { "cwd": "apps/mobile" }
     }
   },
   "tags": ["scope:frontend", "type:application"]

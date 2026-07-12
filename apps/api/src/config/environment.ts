@@ -6,6 +6,7 @@ export const environmentSchema = z.object({
     .default('development'),
   PORT: z.coerce.number().int().min(1).max(65_535).default(3000),
   APP_VERSION: z.string().trim().min(1).default('0.1.0'),
+  DATABASE_URL: z.string().trim().url(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;

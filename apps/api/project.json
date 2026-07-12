@@ -7,6 +7,7 @@
   "targets": {
     "serve": {
       "command": "npm run start:dev",
+      "dependsOn": ["db-migrate"],
       "continuous": true,
       "cache": false,
       "options": { "cwd": "apps/api" }
@@ -27,6 +28,26 @@
     "test": {
       "command": "npm run test:cov -- --runInBand",
       "outputs": ["{projectRoot}/coverage"],
+      "options": { "cwd": "apps/api" }
+    },
+    "db-migrate": {
+      "command": "npm run db:migrate",
+      "cache": false,
+      "options": { "cwd": "apps/api" }
+    },
+    "db-rollback": {
+      "command": "npm run db:rollback",
+      "cache": false,
+      "options": { "cwd": "apps/api" }
+    },
+    "db-seed": {
+      "command": "npm run db:seed",
+      "cache": false,
+      "options": { "cwd": "apps/api" }
+    },
+    "db-test": {
+      "command": "npm run test:db",
+      "cache": false,
       "options": { "cwd": "apps/api" }
     }
   },

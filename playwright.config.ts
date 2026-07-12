@@ -1,18 +1,18 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: "./e2e",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? [['html', { open: 'never' }]] : 'list',
+  reporter: process.env.CI ? [["html", { open: "never" }]] : "list",
   use: {
-    baseURL: 'http://127.0.0.1:3000',
-    trace: 'on-first-retry',
+    baseURL: "http://127.0.0.1:3000",
+    trace: "on-first-retry",
   },
   webServer: {
-    command: 'npm --prefix apps/api run start',
-    url: 'http://127.0.0.1:3000',
+    command: "npx nx serve api",
+    url: "http://127.0.0.1:3000/api/v1/health",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

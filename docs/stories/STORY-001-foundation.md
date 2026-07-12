@@ -14,7 +14,8 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 - Provide canonical Nx targets for serve, build, lint, unit tests, E2E tests, and affected-only CI execution.
 - Configure a pre-commit hook to run lint with automatic fixes and update staged files.
 - Configure variables validated at API startup.
-- Create a shared contracts package without domain logic.
+- Create an empty shared-contracts package boundary and its build/test tooling without speculative domain types.
+- Add shared contracts only in the later story that introduces the first concrete cross-application consumer.
 - Add OpenAPI and the `GET /api/v1/health` endpoint.
 - Add required pull-request CI with lint, build, and unit tests.
 - Configure Playwright and an E2E pipeline that can only be started manually.
@@ -24,6 +25,7 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 - A clean setup works by following the README.
 - `nx graph` discovers both applications and the shared package without circular dependencies.
 - Root development and verification commands run through Nx rather than `npm --prefix` orchestration.
+- The contracts package exposes no placeholder User, Tournament, Wallet, Payment, or other future domain definitions.
 - Invalid configuration prevents the API from starting and produces a safe message.
 - The health check returns the version and status without exposing secrets.
 - Every commit runs lint with automatic fixes before it is created.

@@ -6,7 +6,7 @@ MVP foundation for paid chess tournaments. The platform manages users, registrat
 
 - `apps/mobile`: React Native application with Expo and TypeScript, registered as an Nx project.
 - `apps/api`: NestJS API with TypeScript, registered as an Nx project.
-- `packages/contracts`: shared contracts (to be implemented in Story 01).
+- `packages/contracts`: cross-application contracts added incrementally by the story that introduces a concrete shared consumer; Story 01 creates only the package boundary and tooling.
 - Nx is the planned root orchestrator for serve, build, lint, test, E2E, and database-migration targets in STORY-001/002.
 - `docs/IMPLEMENTATION_PLAN.md`: MVP implementation order.
 - `docs/stories`: executable backlog, one story per file.

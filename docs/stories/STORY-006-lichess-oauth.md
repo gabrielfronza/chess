@@ -1,26 +1,26 @@
-# STORY-006 — Vinculação OAuth com Lichess
+# STORY-006 — Lichess OAuth linking
 
 **Status:** ready  
-**Dependências:** STORY-005
+**Dependencies:** STORY-005
 
-## História
+## Story
 
-Como usuário, quero conectar minha conta Lichess sem digitar o username para poder jogar.
+As a user, I want to connect my Lichess account without typing a username so I can play.
 
-## Escopo
+## Scope
 
-- OAuth Authorization Code com PKCE, state e callback seguro.
-- Consultar identidade autenticada no Lichess e persistir tokens criptografados.
-- Garantir relação um-para-um nos níveis de banco e serviço.
-- Exibir conta vinculada e permitir revogação somente se não quebrar inscrição ativa.
+- OAuth Authorization Code with PKCE, state, and a secure callback.
+- Fetch the authenticated Lichess identity and persist encrypted tokens.
+- Enforce a one-to-one relationship at the database and service levels.
+- Display the linked account and allow revocation only when it does not break an active registration.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- State inválido/expirado é rejeitado.
-- A mesma conta Lichess não pode ser ligada a dois usuários, mesmo sob concorrência.
-- Username nunca é aceito como prova de identidade.
-- Falhas externas têm timeout e mensagem recuperável.
+- An invalid or expired state is rejected.
+- The same Lichess account cannot be linked to two users, even under concurrency.
+- A username is never accepted as proof of identity.
+- External failures have a timeout and a recoverable message.
 
-## Verificação
+## Verification
 
-Testes com servidor Lichess simulado para sucesso, duplicidade, state inválido e timeout.
+Test against a simulated Lichess server for success, duplicates, invalid state, and timeout.

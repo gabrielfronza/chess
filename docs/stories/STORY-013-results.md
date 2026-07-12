@@ -1,26 +1,26 @@
-# STORY-013 — Resultados e distribuição de prêmios
+# STORY-013 — Results and prize distribution
 
 **Status:** ready  
-**Dependências:** STORY-011
+**Dependencies:** STORY-011
 
-## História
+## Story
 
-Como participante, quero que o resultado final do Lichess seja sincronizado e os prêmios sejam creditados corretamente.
+As a participant, I want the final Lichess result synchronized and prizes credited correctly.
 
-## Escopo
+## Scope
 
-- Sincronização administrativa e por job dos standings finais.
-- Snapshot imutável de colocação, score e tie-breaks.
-- Política explícita de prize breakdown e créditos no ledger.
-- Reconciliação, retentativa e auditoria.
+- Administrative and job-based synchronization of final standings.
+- Immutable snapshot of placement, score, and tie-breaks.
+- Explicit prize-breakdown policy and ledger credits.
+- Reconciliation, retries, and auditing.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Só torneio finalizado no Lichess pode distribuir prêmio.
-- Soma dos prêmios não excede o pool configurado.
-- Reprocessar standings não duplica resultados nem créditos.
-- Divergências após distribuição exigem fluxo administrativo auditado.
+- Only a tournament completed in Lichess can distribute prizes.
+- The sum of prizes does not exceed the configured pool.
+- Reprocessing standings does not duplicate results or credits.
+- Discrepancies after distribution require an audited administrative flow.
 
-## Verificação
+## Verification
 
-Fixtures de standings testam empates, vencedores, repetição, dado incompleto e falha parcial.
+Use standings fixtures to test ties, winners, repetition, incomplete data, and partial failure.

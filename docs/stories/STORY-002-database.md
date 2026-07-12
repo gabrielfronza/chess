@@ -1,29 +1,29 @@
-# STORY-002 — PostgreSQL, TypeORM e modelo inicial
+# STORY-002 — PostgreSQL, TypeORM, and initial model
 
 **Status:** ready  
-**Dependências:** STORY-001
+**Dependencies:** STORY-001
 
-## História
+## Story
 
-Como equipe, queremos persistência transacional e um esquema versionado para sustentar o domínio.
+As a team, we want transactional persistence and a versioned schema to support the domain.
 
-## Escopo
+## Scope
 
-- Docker Compose com PostgreSQL e TypeORM.
-- Configurar um `DataSource` compartilhado pela aplicação e pela CLI do TypeORM.
-- Versionar migrations para toda alteração de schema; manter `synchronize: false` nos ambientes da aplicação.
-- Modelar User, LichessAccount, Tournament, Registration, Wallet, WalletEntry, Payment, Result, WithdrawalRequest e AuditLog.
-- Usar enums explícitos de status, timestamps UTC, constraints únicas e dinheiro em centavos.
-- Seed somente com administrador e torneios fictícios não financeiros.
+- Docker Compose with PostgreSQL and TypeORM.
+- Configure a `DataSource` shared by the application and TypeORM CLI.
+- Version migrations for every schema change; keep `synchronize: false` in application environments.
+- Model User, LichessAccount, Tournament, Registration, Wallet, WalletEntry, Payment, Result, WithdrawalRequest, and AuditLog.
+- Use explicit status enums, UTC timestamps, unique constraints, and money stored in cents.
+- Seed only an administrator and non-financial sample tournaments.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Migrations sobem o banco do zero e podem ser aplicadas pela CLI em CI.
-- A aplicação não depende de sincronização automática do schema.
-- Constraints impedem vínculo Lichess, inscrição e idempotency key duplicados.
-- Relações e índices cobrem consultas descritas no MVP.
-- Teste de integração grava e recupera o agregado principal.
+- Migrations create the database from scratch and can be applied through the CLI in CI.
+- The application does not depend on automatic schema synchronization.
+- Constraints prevent duplicate Lichess links, registrations, and idempotency keys.
+- Relations and indexes cover the queries described in the MVP.
+- An integration test writes and reads the primary aggregate.
 
-## Verificação
+## Verification
 
-Subir o banco, executar as migrations pela CLI do TypeORM, executar seed e testes de integração.
+Start the database, run migrations through the TypeORM CLI, run the seed, and run integration tests.

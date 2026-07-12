@@ -1,24 +1,24 @@
-# Guia para agentes
+# Agent Guide
 
-## Contrato de execução
+## Execution contract
 
-- Trabalhe em uma única story por vez.
-- Leia `README.md`, `docs/ARCHITECTURE.md` e o arquivo da story.
-- Não implemente itens explicitamente fora do escopo.
-- Preserve as invariantes financeiras e a idempotência.
-- Não grave segredos, tokens ou dados pessoais em logs.
-- Faça migrações compatíveis e inclua testes para regras de negócio.
-- Atualize documentação e `.env.example` quando criar configuração.
+- Work on one story at a time.
+- Read `README.md`, `docs/ARCHITECTURE.md`, and the story file.
+- Do not implement items explicitly outside the scope.
+- Preserve financial invariants and idempotency.
+- Do not log secrets, tokens, or personal data.
+- Create compatible migrations and include tests for business rules.
+- Update documentation and `.env.example` when adding configuration.
 
-## Entrega obrigatória
+## Required handoff
 
-Ao finalizar, informe: arquivos alterados, decisões tomadas, comandos executados, resultado dos testes, riscos restantes e critérios de aceite conferidos.
+When finished, report: changed files, decisions made, commands run, test results, remaining risks, and verified acceptance criteria.
 
-## Definition of Done global
+## Global Definition of Done
 
-- Critérios de aceite da story atendidos.
-- TypeScript compila sem erros.
-- Lint e testes relevantes passam.
-- Erros externos têm timeout, tratamento e logs seguros.
-- Endpoints novos têm autorização, validação e documentação OpenAPI.
-- Operações repetíveis são idempotentes quando aplicável.
+- The story's acceptance criteria are met.
+- TypeScript compiles without errors.
+- Relevant lint checks and tests pass.
+- External errors have timeouts, handling, and safe logs.
+- New endpoints include authorization, validation, and OpenAPI documentation.
+- Repeatable operations are idempotent when applicable.

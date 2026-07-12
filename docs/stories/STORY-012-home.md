@@ -1,25 +1,25 @@
-# STORY-012 — Home autenticada
+# STORY-012 — Authenticated home
 
 **Status:** ready  
-**Dependências:** STORY-008, STORY-009, STORY-011
+**Dependencies:** STORY-008, STORY-009, STORY-011
 
-## História
+## Story
 
-Como usuário, quero um resumo acionável da minha atividade ao abrir o app.
+As a user, I want an actionable summary of my activity when I open the app.
 
-## Escopo
+## Scope
 
-- Endpoint agregador ou consultas coordenadas para próximos torneios, saldo, inscrições e resultados recentes.
-- Cards e atalhos para marketplace, carteira, histórico e perfil.
-- Cache e refresh sem mostrar dados de outro usuário.
+- Aggregation endpoint or coordinated queries for upcoming tournaments, balance, registrations, and recent results.
+- Cards and shortcuts to the marketplace, wallet, history, and profile.
+- Cache and refresh without showing another user's data.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Cada seção trata vazio/erro independentemente.
-- Pull-to-refresh atualiza os dados.
-- Torneio registrado permite abrir detalhe e, quando cabível, o Lichess.
-- Saldo e datas usam formatação consistente com o restante do app.
+- Each section handles empty and error states independently.
+- Pull-to-refresh updates the data.
+- A registered tournament can open its details and, when applicable, Lichess.
+- Balances and dates use formatting consistent with the rest of the app.
 
-## Verificação
+## Verification
 
-Testes do agregador e smoke test dos atalhos.
+Test the aggregator and run a smoke test for the shortcuts.

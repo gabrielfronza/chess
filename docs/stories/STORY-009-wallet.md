@@ -1,26 +1,26 @@
-# STORY-009 — Carteira e ledger
+# STORY-009 — Wallet and ledger
 
 **Status:** ready  
-**Dependências:** STORY-002, STORY-004
+**Dependencies:** STORY-002, STORY-004
 
-## História
+## Story
 
-Como usuário, quero ver meu saldo e movimentações com rastreabilidade.
+As a user, I want to see my balance and transactions with traceability.
 
-## Escopo
+## Scope
 
-- Ledger imutável com CREDIT, DEBIT, RESERVE, RELEASE e ADJUSTMENT.
-- Serviço transacional de saldo disponível e reservado.
-- Endpoints de saldo e histórico paginado; tela mobile correspondente.
-- Ajuste administrativo exige motivo, ator e idempotency key.
+- Immutable ledger with CREDIT, DEBIT, RESERVE, RELEASE, and ADJUSTMENT.
+- Transactional service for available and reserved balances.
+- Balance and paginated history endpoints with the corresponding mobile screen.
+- Administrative adjustments require a reason, actor, and idempotency key.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Nenhum valor monetário usa float.
-- Concorrência não permite saldo disponível negativo.
-- Uma idempotency key não gera duas movimentações.
-- Histórico mostra valor, tipo, data, status e referência.
+- No monetary value uses floating point.
+- Concurrency cannot produce a negative available balance.
+- An idempotency key cannot create two transactions.
+- History displays amount, type, date, status, and reference.
 
-## Verificação
+## Verification
 
-Testes concorrentes de reserva, idempotência e reconciliação do ledger.
+Run concurrent reservation, idempotency, and ledger reconciliation tests.

@@ -1,22 +1,22 @@
 # Chess Tournament Platform
 
-Base do MVP para torneios de xadrez pagos. A plataforma gerencia usuários, inscrições, carteira, pagamentos e prêmios; o Lichess gerencia as partidas, emparceiramentos e classificação.
+MVP foundation for paid chess tournaments. The platform manages users, registrations, wallets, payments, and prizes; Lichess manages games, pairings, and standings.
 
-## Estrutura
+## Structure
 
-- `apps/mobile`: aplicativo React Native com Expo e TypeScript.
-- `apps/api`: API NestJS com TypeScript.
-- `packages/contracts`: contratos compartilhados (será implementado na Story 01).
-- `docs/IMPLEMENTATION_PLAN.md`: ordem de execução do MVP.
-- `docs/stories`: backlog executável, uma story por arquivo.
+- `apps/mobile`: React Native application with Expo and TypeScript.
+- `apps/api`: NestJS API with TypeScript.
+- `packages/contracts`: shared contracts (to be implemented in Story 01).
+- `docs/IMPLEMENTATION_PLAN.md`: MVP implementation order.
+- `docs/stories`: executable backlog, one story per file.
 
-## Pré-requisitos
+## Prerequisites
 
-- Node.js 22 LTS (o Node 23 não é suportado pelo Metro usado pelo Expo atual).
-- npm 10 ou superior.
-- Docker, a partir da story de infraestrutura.
+- Node.js 22 LTS (Node 23 is not supported by the current Expo Metro version).
+- npm 10 or later.
+- Docker, starting with the infrastructure story.
 
-## Começar
+## Getting started
 
 ```bash
 nvm use
@@ -25,20 +25,20 @@ npm --prefix apps/mobile install
 npm run dev:api
 ```
 
-Em outro terminal:
+In another terminal:
 
 ```bash
 npm run dev:mobile
 ```
 
-A API inicial responde em `http://localhost:3000`. Variáveis futuras estão documentadas em `.env.example` e devem ser configuradas story a story.
+The initial API responds at `http://localhost:3000`. Future variables are documented in `.env.example` and must be configured story by story.
 
-## Como executar o backlog com agentes
+## Running the backlog with agents
 
-1. Escolha somente uma story marcada como `ready` cujas dependências estejam concluídas.
-2. Envie ao agente o arquivo da story, `docs/AGENT_GUIDE.md` e os arquivos citados em “Contexto”.
-3. Exija testes e os comandos da seção “Verificação”.
-4. Revise os critérios de aceite antes de marcar a story como `done`.
-5. Stories da mesma onda só devem ser paralelizadas quando não alterarem os mesmos módulos.
+1. Choose only a `ready` story whose dependencies are complete.
+2. Send the agent the story file, `docs/AGENT_GUIDE.md`, and the files listed under “Context.”
+3. Require tests and the commands from the “Verification” section.
+4. Review the acceptance criteria before marking the story as `done`.
+5. Stories in the same wave should only run in parallel when they do not change the same modules.
 
-Consulte [o plano de implementação](docs/IMPLEMENTATION_PLAN.md) para a sequência completa.
+See the [implementation plan](docs/IMPLEMENTATION_PLAN.md) for the complete sequence.

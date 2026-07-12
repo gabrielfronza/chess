@@ -1,30 +1,30 @@
-# Arquitetura do MVP
+# MVP Architecture
 
-## Decisões principais
+## Key decisions
 
-- Monólito modular NestJS no backend. É a opção mais simples para preservar transações de inscrição e carteira no MVP.
-- PostgreSQL como fonte de verdade; TypeORM será introduzido na fundação, com evolução do schema exclusivamente por migrations versionadas e `synchronize: false` fora dos testes.
-- Valores monetários armazenados em centavos de USD, nunca em ponto flutuante.
-- Ledger imutável para carteira. O saldo é derivado/atualizado apenas dentro de transações do banco.
-- Auth0 emite a identidade; a API mantém perfil, papel e estado da conta.
-- OAuth PKCE do Lichess liga a conta sem entrada manual de username.
-- Stripe Checkout/Payment Intent adiciona créditos; webhooks assinados confirmam o crédito de forma idempotente.
-- Jobs assíncronos cuidam da sincronização de resultados e retentativas das integrações.
+- Modular NestJS monolith for the backend. This is the simplest option for preserving registration and wallet transactions in the MVP.
+- PostgreSQL as the source of truth; TypeORM will be introduced in the foundation, with schema evolution handled exclusively through versioned migrations and `synchronize: false` outside tests.
+- Monetary values stored in USD cents, never as floating-point values.
+- Immutable wallet ledger. Balances are derived or updated only within database transactions.
+- Auth0 issues identities; the API maintains profiles, roles, and account states.
+- Lichess OAuth PKCE links accounts without manual username entry.
+- Stripe Checkout/Payment Intent adds credits; signed webhooks confirm credits idempotently.
+- Asynchronous jobs handle result synchronization and integration retries.
 
-## Módulos da API
+## API modules
 
-`auth`, `users`, `lichess`, `tournaments`, `registrations`, `wallet`, `payments`, `results`, `admin` e `jobs`.
+`auth`, `users`, `lichess`, `tournaments`, `registrations`, `wallet`, `payments`, `results`, `admin`, and `jobs`.
 
-## Invariantes críticas
+## Critical invariants
 
-1. Um usuário da plataforma se liga a no máximo uma conta Lichess, e vice-versa.
-2. Uma inscrição confirmada corresponde a uma única reserva/cobrança de entry fee.
-3. Falha no Lichess após reserva libera os fundos de forma idempotente.
-4. Um evento Stripe ou sincronização Lichess repetido não duplica créditos, inscrições nem prêmios.
-5. Ajustes administrativos e alterações financeiras sempre geram trilha de auditoria.
+1. A platform user links to at most one Lichess account, and vice versa.
+2. A confirmed registration corresponds to exactly one entry-fee reservation or charge.
+3. A Lichess failure after reservation releases the funds idempotently.
+4. A repeated Stripe event or Lichess synchronization does not duplicate credits, registrations, or prizes.
+5. Administrative adjustments and financial changes always create an audit trail.
 
-## Fora do MVP
+## Outside the MVP
 
-Assinatura, restrições por rating, criação automática de torneios, provedor/processamento final de saques, microserviços e chat.
+Subscriptions, rating restrictions, automatic tournament creation, the final withdrawal provider/processing flow, microservices, and chat.
 
-Observação: a landing page será entregue pela saída web responsiva do Expo na STORY-018. Caso SEO e marketing se tornem críticos, ela deverá migrar depois para uma aplicação web dedicada.
+Note: the landing page will be delivered through the responsive Expo web output in STORY-018. If SEO and marketing become critical, it should later move to a dedicated web application.

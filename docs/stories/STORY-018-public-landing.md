@@ -1,26 +1,26 @@
-# STORY-018 — Landing page pública
+# STORY-018 — Public landing page
 
 **Status:** ready  
-**Dependências:** STORY-003
+**Dependencies:** STORY-003
 
-## História
+## Story
 
-Como visitante, quero entender a proposta e ver evidências de atividade antes de criar uma conta.
+As a visitor, I want to understand the value proposition and see evidence of activity before creating an account.
 
-## Escopo
+## Scope
 
-- Rota pública responsiva no Expo Web com Hero, Como funciona, próximos torneios, vencedores recentes e FAQ.
-- CTAs de Login e Cadastro direcionam ao Auth0 quando a STORY-004 estiver disponível; antes disso podem usar adaptador/placeholder explícito.
-- Endpoints públicos retornam somente torneios publicados e vencedores já finalizados, sem dados pessoais extras.
-- Metadados, acessibilidade, performance e analytics consentido básico.
+- Responsive public route in Expo Web with Hero, How It Works, upcoming tournaments, recent winners, and FAQ sections.
+- Login and Sign Up CTAs direct to Auth0 when STORY-004 is available; before then, they may use an explicit adapter/placeholder.
+- Public endpoints return only published tournaments and winners from completed tournaments, without extra personal data.
+- Metadata, accessibility, performance, and basic consent-based analytics.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Conteúdo principal funciona em desktop e mobile web.
-- Nenhuma funcionalidade privada é acessível sem autenticação.
-- Estados vazios não quebram a página nem inventam resultados.
-- Lighthouse de staging não aponta problema crítico de acessibilidade ou segurança.
+- Primary content works on desktop and mobile web.
+- No private functionality is accessible without authentication.
+- Empty states do not break the page or invent results.
+- Staging Lighthouse reports no critical accessibility or security issue.
 
-## Verificação
+## Verification
 
-Executar export web, testes das consultas públicas e auditoria Lighthouse.
+Run the web export, public-query tests, and a Lighthouse audit.

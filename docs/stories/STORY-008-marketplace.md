@@ -1,26 +1,26 @@
-# STORY-008 — Marketplace e detalhes
+# STORY-008 — Marketplace and details
 
 **Status:** ready  
-**Dependências:** STORY-003, STORY-007
+**Dependencies:** STORY-003, STORY-007
 
-## História
+## Story
 
-Como usuário, quero descobrir torneios e consultar todas as condições antes de entrar.
+As a user, I want to discover tournaments and review every condition before joining.
 
-## Escopo
+## Scope
 
-- Endpoints paginados de torneios publicados e detalhe.
-- Lista mobile com nome, data, ritmo, rodadas, fee, prêmio, participantes e status.
-- Tela de detalhe com agenda, duração, regras, participantes e CTA contextual.
-- Estados vazio, loading, erro e atualização manual.
+- Paginated endpoints for published tournaments and tournament details.
+- Mobile list with name, date, time control, rounds, fee, prize, participants, and status.
+- Detail screen with schedule, duration, rules, participants, and a contextual CTA.
+- Empty, loading, error, and manual refresh states.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Rascunhos não aparecem para usuários comuns.
-- Datas usam timezone do aparelho e valores formatam USD.
-- Paginação não duplica itens.
-- CTA informa por que a inscrição está indisponível.
+- Drafts do not appear to regular users.
+- Dates use the device timezone and monetary values are formatted as USD.
+- Pagination does not duplicate items.
+- The CTA explains why registration is unavailable.
 
-## Verificação
+## Verification
 
-Testes de consulta/filtro e testes de componentes para estados principais.
+Run query/filter tests and component tests for the primary states.

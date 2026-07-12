@@ -1,7 +1,7 @@
 # STORY-009 — Wallet and ledger
 
 **Status:** ready  
-**Dependencies:** STORY-002, STORY-004
+**Dependencies:** STORY-002, STORY-004, STORY-017
 
 ## Story
 

@@ -1,6 +1,6 @@
 # STORY-001 — Quality, configuration, and contracts
 
-**Status:** in_progress
+**Status:** done
 **Dependencies:** none
 
 ## Story

@@ -1,7 +1,7 @@
 # STORY-016 — Observability, security, and auditing
 
 **Status:** ready  
-**Dependencies:** STORY-006, STORY-010, STORY-013, STORY-015
+**Dependencies:** STORY-006, STORY-013
 
 ## Story
 
@@ -10,9 +10,9 @@ As an operator, I want to detect failures and investigate sensitive actions with
 ## Scope
 
 - Structured logs with correlation IDs and secret/PII redaction.
-- Metrics and alerts for webhooks, jobs, stuck registrations, and financial inconsistencies.
+- Metrics and alerts for jobs, stuck registrations, and integration failures; financial alerts are extended with the financial stories.
 - Rate limiting, CORS, headers, payload limits, and error management.
-- Audit logs for administration, payments, prizes, links, and withdrawals.
+- Audit logs for administration, result entitlements, account links, and registration reconciliation; financial audit events are added with the financial stories.
 - Reconciliation and incident-response runbooks.
 
 ## Acceptance criteria

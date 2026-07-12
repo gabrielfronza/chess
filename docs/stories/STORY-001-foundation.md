@@ -10,6 +10,8 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 ## Scope
 
 - Standardize Node 22, scripts, linting, formatting, and unit tests.
+- Initialize Nx at the repository root and register the API, mobile app, and shared contracts as Nx projects.
+- Provide canonical Nx targets for serve, build, lint, unit tests, E2E tests, and affected-only CI execution.
 - Configure a pre-commit hook to run lint with automatic fixes and update staged files.
 - Configure variables validated at API startup.
 - Create a shared contracts package without domain logic.
@@ -20,6 +22,8 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 ## Acceptance criteria
 
 - A clean setup works by following the README.
+- `nx graph` discovers both applications and the shared package without circular dependencies.
+- Root development and verification commands run through Nx rather than `npm --prefix` orchestration.
 - Invalid configuration prevents the API from starting and produces a safe message.
 - The health check returns the version and status without exposing secrets.
 - Every commit runs lint with automatic fixes before it is created.
@@ -30,6 +34,6 @@ As a team, we want a reproducible foundation for developing the mobile app and A
 
 ## Verification
 
-`npm run lint`, `npm run test:unit`, `npm run build`, and `npm run test:e2e`.
+`npx nx show projects`, `npx nx run-many -t lint test build`, and the Playwright E2E target. Verify the CI workflow uses `nx affected` with the pull request base and head revisions.
 
 In GitHub, manually run the E2E workflow and protect the `main` branch by requiring the `quality-gate` check to pass before merging.

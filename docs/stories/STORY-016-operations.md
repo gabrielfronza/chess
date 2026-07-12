@@ -1,27 +1,27 @@
-# STORY-016 — Observabilidade, segurança e auditoria
+# STORY-016 — Observability, security, and auditing
 
 **Status:** ready  
-**Dependências:** STORY-006, STORY-010, STORY-013, STORY-015
+**Dependencies:** STORY-006, STORY-010, STORY-013, STORY-015
 
-## História
+## Story
 
-Como operador, quero detectar falhas e investigar ações sensíveis sem expor dados privados.
+As an operator, I want to detect failures and investigate sensitive actions without exposing private data.
 
-## Escopo
+## Scope
 
-- Logs estruturados com correlation ID e redação de segredos/PII.
-- Métricas e alertas para webhooks, jobs, inscrições presas e inconsistência financeira.
-- Rate limiting, CORS, headers, limites de payload e gestão de erros.
-- Audit log para admin, pagamentos, prêmios, vínculos e saques.
-- Runbooks de reconciliação e resposta a incidentes.
+- Structured logs with correlation IDs and secret/PII redaction.
+- Metrics and alerts for webhooks, jobs, stuck registrations, and financial inconsistencies.
+- Rate limiting, CORS, headers, payload limits, and error management.
+- Audit logs for administration, payments, prizes, links, and withdrawals.
+- Reconciliation and incident-response runbooks.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Uma jornada pode ser rastreada por correlation ID.
-- Tokens, segredos, email completo e payloads sensíveis não aparecem em logs.
-- Alertas cobrem falha persistente das integrações e estados presos.
-- Auditoria identifica ator, ação, alvo, horário e metadados seguros.
+- A journey can be traced by correlation ID.
+- Tokens, secrets, full email addresses, and sensitive payloads do not appear in logs.
+- Alerts cover persistent integration failures and stuck states.
+- Auditing identifies the actor, action, target, time, and safe metadata.
 
-## Verificação
+## Verification
 
-Testes de redaction/rate limit e simulação documentada de falha externa.
+Run redaction/rate-limit tests and a documented external-failure simulation.

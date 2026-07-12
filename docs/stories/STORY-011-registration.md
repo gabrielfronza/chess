@@ -1,26 +1,26 @@
-# STORY-011 — Inscrição transacional
+# STORY-011 — Transactional registration
 
 **Status:** ready  
-**Dependências:** STORY-006, STORY-007, STORY-009
+**Dependencies:** STORY-006, STORY-007, STORY-009
 
-## História
+## Story
 
-Como usuário elegível, quero entrar em um torneio e ter minha vaga e taxa tratadas atomicamente.
+As an eligible user, I want to enter a tournament and have my spot and fee handled atomically.
 
-## Escopo
+## Scope
 
-- Validar onboarding, Lichess, status/prazo, duplicidade e saldo.
-- Reservar fee, registrar no Swiss do Lichess, confirmar inscrição e capturar/deduzir reserva.
-- Em falha, liberar reserva; job reconcilia estados intermediários após crash.
-- UI com confirmação, progresso, sucesso e erro recuperável.
+- Validate onboarding, Lichess, status/deadline, duplicates, and balance.
+- Reserve the fee, register in Lichess Swiss, confirm registration, and capture/deduct the reservation.
+- On failure, release the reservation; a job reconciles intermediate states after a crash.
+- UI with confirmation, progress, success, and recoverable error states.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Duplo clique/requisição concorrente cria uma inscrição e uma cobrança.
-- Falha conhecida do Lichess libera os fundos.
-- Timeout deixa estado reconciliável, sem assumir falha ou sucesso indevidamente.
-- Inscrição confirmada contém referências da carteira e do Lichess.
+- A double click or concurrent request creates one registration and one charge.
+- A known Lichess failure releases the funds.
+- A timeout leaves a reconcilable state without incorrectly assuming failure or success.
+- A confirmed registration contains wallet and Lichess references.
 
-## Verificação
+## Verification
 
-Testes de integração para sucesso, saldo insuficiente, duplicidade, timeout e compensação.
+Run integration tests for success, insufficient balance, duplicates, timeout, and compensation.

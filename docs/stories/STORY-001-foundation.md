@@ -1,35 +1,35 @@
-# STORY-001 — Qualidade, configuração e contratos
+# STORY-001 — Quality, configuration, and contracts
 
 **Status:** ready  
-**Dependências:** nenhuma
+**Dependencies:** none
 
-## História
+## Story
 
-Como equipe, queremos uma base reproduzível para desenvolver mobile e API com feedback rápido.
+As a team, we want a reproducible foundation for developing the mobile app and API with fast feedback.
 
-## Escopo
+## Scope
 
-- Padronizar Node 22, scripts, lint, format e testes unitários.
-- Configurar hook de pre-commit para executar lint com correção automática e atualizar os arquivos staged.
-- Configurar variáveis validadas na inicialização da API.
-- Criar pacote de contratos compartilhados sem lógica de domínio.
-- Adicionar OpenAPI e endpoint `GET /api/v1/health`.
-- Adicionar CI obrigatório para pull requests com lint, build e testes unitários.
-- Configurar Playwright e um pipeline E2E iniciado apenas manualmente.
+- Standardize Node 22, scripts, linting, formatting, and unit tests.
+- Configure a pre-commit hook to run lint with automatic fixes and update staged files.
+- Configure variables validated at API startup.
+- Create a shared contracts package without domain logic.
+- Add OpenAPI and the `GET /api/v1/health` endpoint.
+- Add required pull-request CI with lint, build, and unit tests.
+- Configure Playwright and an E2E pipeline that can only be started manually.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Setup limpo funciona seguindo o README.
-- Configuração inválida impede a API de iniciar com mensagem segura.
-- Health check retorna versão e estado sem expor segredos.
-- Todo commit executa lint com correção automática antes de ser criado.
-- Pipeline de pull request executa lint sem alterar arquivos, testes unitários e build de ambos os apps.
-- O check `quality-gate` pode ser configurado como obrigatório na proteção da branch `main`.
-- Pipeline E2E pode ser iniciado manualmente no GitHub Actions e publica o relatório do Playwright.
-- Pelo menos um teste E2E Playwright valida a aplicação em execução.
+- A clean setup works by following the README.
+- Invalid configuration prevents the API from starting and produces a safe message.
+- The health check returns the version and status without exposing secrets.
+- Every commit runs lint with automatic fixes before it is created.
+- The pull-request pipeline runs lint without changing files, unit tests, and builds for both apps.
+- The `quality-gate` check can be configured as required in the `main` branch protection rule.
+- The E2E pipeline can be started manually in GitHub Actions and publishes the Playwright report.
+- At least one Playwright E2E test validates the running application.
 
-## Verificação
+## Verification
 
-`npm run lint`, `npm run test:unit`, `npm run build` e `npm run test:e2e`.
+`npm run lint`, `npm run test:unit`, `npm run build`, and `npm run test:e2e`.
 
-No GitHub, executar manualmente o workflow E2E e proteger a branch `main`, exigindo que o check `quality-gate` passe antes do merge.
+In GitHub, manually run the E2E workflow and protect the `main` branch by requiring the `quality-gate` check to pass before merging.

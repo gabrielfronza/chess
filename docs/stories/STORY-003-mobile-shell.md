@@ -1,26 +1,26 @@
-# STORY-003 — Shell mobile e navegação
+# STORY-003 — Mobile shell and navigation
 
 **Status:** ready  
-**Dependências:** STORY-001
+**Dependencies:** STORY-001
 
-## História
+## Story
 
-Como usuário, quero uma estrutura de navegação consistente e acessível no aplicativo.
+As a user, I want a consistent and accessible navigation structure in the application.
 
-## Escopo
+## Scope
 
-- Configurar Expo Router, tema, safe areas, loading e error boundary.
-- Criar rotas públicas, onboarding e tabs autenticadas: Home, Torneios, Carteira, Histórico e Perfil.
-- Criar cliente HTTP tipado e configuração por ambiente.
-- Telas são placeholders; lógica de negócio fica fora desta story.
+- Configure Expo Router, theme, safe areas, loading, and an error boundary.
+- Create public routes, onboarding, and authenticated tabs: Home, Tournaments, Wallet, History, and Profile.
+- Create a typed HTTP client and per-environment configuration.
+- Screens are placeholders; business logic is outside this story.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Rotas públicas e privadas têm grupos distintos.
-- Deep link pode abrir uma rota de detalhe de torneio.
-- Componentes base respeitam acessibilidade e estados de carregamento/erro/vazio.
-- App inicia em iOS, Android ou Expo Web sem erro de TypeScript.
+- Public and private routes have distinct groups.
+- A deep link can open a tournament detail route.
+- Base components respect accessibility and loading, error, and empty states.
+- The app starts on iOS, Android, or Expo Web without TypeScript errors.
 
-## Verificação
+## Verification
 
-Executar typecheck e smoke test de navegação.
+Run type checking and a navigation smoke test.

@@ -1,26 +1,26 @@
-# STORY-007 — Administração de torneios
+# STORY-007 — Tournament administration
 
 **Status:** ready  
-**Dependências:** STORY-002, STORY-004
+**Dependencies:** STORY-002, STORY-004
 
-## História
+## Story
 
-Como administrador, quero criar, editar, publicar e cancelar torneios manuais.
+As an administrator, I want to create, edit, publish, and cancel manually managed tournaments.
 
-## Escopo
+## Scope
 
-- CRUD administrativo com nome, descrição, agenda, duração, ritmo, rodadas, fee, prize pool, regras e Lichess tournament ID.
-- Máquina de estados DRAFT, PUBLISHED, REGISTRATION_CLOSED, RUNNING, FINISHED e CANCELLED.
-- Lista de participantes e trilha de auditoria.
-- Nesta story, a interface administrativa pode ser Swagger/API.
+- Administrative CRUD with name, description, schedule, duration, time control, rounds, fee, prize pool, rules, and Lichess tournament ID.
+- State machine with DRAFT, PUBLISHED, REGISTRATION_CLOSED, RUNNING, FINISHED, and CANCELLED.
+- Participant list and audit trail.
+- In this story, the administrative interface may be Swagger/API.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Apenas ADMIN usa endpoints de escrita.
-- Transições inválidas e edição financeira após inscrições são bloqueadas.
-- Torneio publicado exige todos os campos e vínculo Lichess válidos.
-- Cancelamento registra motivo e prepara reembolso idempotente quando necessário.
+- Only ADMIN can use write endpoints.
+- Invalid transitions and financial edits after registrations are blocked.
+- A published tournament requires all fields and a valid Lichess link.
+- Cancellation records a reason and prepares an idempotent refund when necessary.
 
-## Verificação
+## Verification
 
-Testes da máquina de estados, RBAC e validações.
+Test the state machine, RBAC, and validations.

@@ -1,26 +1,26 @@
-# STORY-015 — Solicitação de saque
+# STORY-015 — Withdrawal request
 
 **Status:** ready  
-**Dependências:** STORY-009
+**Dependencies:** STORY-009
 
-## História
+## Story
 
-Como usuário, quero solicitar um saque para que a equipe possa processá-lo manualmente enquanto o provedor não é definido.
+As a user, I want to request a withdrawal so the team can process it manually while the provider is undecided.
 
-## Escopo
+## Scope
 
-- Criar solicitação e reservar o valor no ledger.
-- Estados REQUESTED, APPROVED, REJECTED, PAID e CANCELLED.
-- Administração via API, com motivo e auditoria.
-- Não integrar payout ou coletar dados bancários nesta fase.
+- Create a request and reserve the amount in the ledger.
+- REQUESTED, APPROVED, REJECTED, PAID, and CANCELLED states.
+- Administration through the API, with a reason and audit trail.
+- Do not integrate payouts or collect bank details at this stage.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Solicitação não excede saldo disponível e não duplica por idempotency key.
-- Rejeição/cancelamento libera reserva exatamente uma vez.
-- Marcar PAID exige confirmação administrativa e referência externa.
-- UI deixa claro que processamento é manual e não promete prazo.
+- A request cannot exceed the available balance or be duplicated by idempotency key.
+- Rejection/cancellation releases the reservation exactly once.
+- Marking a request PAID requires administrative confirmation and an external reference.
+- The UI makes it clear that processing is manual and promises no deadline.
 
-## Verificação
+## Verification
 
-Testes da máquina de estados, reservas e autorização administrativa.
+Test the state machine, reservations, and administrative authorization.

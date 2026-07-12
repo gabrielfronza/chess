@@ -1,26 +1,26 @@
-# STORY-004 — Autenticação com Auth0
+# STORY-004 — Authentication with Auth0
 
 **Status:** ready  
-**Dependências:** STORY-002, STORY-003
+**Dependencies:** STORY-002, STORY-003
 
-## História
+## Story
 
-Como visitante, quero criar conta e entrar com segurança para acessar a plataforma.
+As a visitor, I want to create an account and sign in securely to access the platform.
 
-## Escopo
+## Scope
 
-- Universal Login do Auth0 no app com PKCE e armazenamento seguro de sessão.
-- Guard JWT/JWKS na API, audience/issuer e sincronização idempotente do usuário.
-- Logout e tratamento de token expirado.
-- Papel `USER` e `ADMIN` mantido pela API; não confiar em papel enviado pelo cliente.
+- Auth0 Universal Login in the app with PKCE and secure session storage.
+- JWT/JWKS guard in the API, audience/issuer validation, and idempotent user synchronization.
+- Logout and expired-token handling.
+- `USER` and `ADMIN` roles maintained by the API; do not trust roles sent by the client.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Endpoint privado rejeita token ausente/inválido e aceita token válido.
-- Primeiro login cria usuário uma única vez; logins seguintes atualizam apenas campos permitidos.
-- Logout remove credenciais locais.
-- Nenhum token aparece em logs ou armazenamento inseguro.
+- A private endpoint rejects a missing or invalid token and accepts a valid token.
+- The first login creates the user exactly once; subsequent logins update only permitted fields.
+- Logout removes local credentials.
+- No token appears in logs or insecure storage.
 
-## Verificação
+## Verification
 
-Testes unitários do guard, integração de sincronização e smoke test do login.
+Run guard unit tests, synchronization integration tests, and a login smoke test.

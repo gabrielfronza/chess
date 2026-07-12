@@ -1,25 +1,25 @@
-# STORY-014 — Histórico de torneios
+# STORY-014 — Tournament history
 
 **Status:** ready  
-**Dependências:** STORY-003, STORY-013
+**Dependencies:** STORY-003, STORY-013
 
-## História
+## Story
 
-Como usuário, quero consultar meus torneios passados, colocação e prêmio.
+As a user, I want to review my past tournaments, placement, and prize.
 
-## Escopo
+## Scope
 
-- Endpoint paginado do histórico do usuário.
-- Tela com nome, data, fee, participantes, colocação e prêmio.
-- Detalhe abre resultado/torneio correspondente.
+- Paginated endpoint for the user's history.
+- Screen with name, date, fee, participants, placement, and prize.
+- Details open the corresponding result/tournament.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Usuário vê apenas o próprio histórico.
-- Ordenação padrão é mais recente primeiro e paginação é estável.
-- Ausência de prêmio é diferenciada de sincronização pendente.
-- Valores e colocação vêm do snapshot final.
+- A user sees only their own history.
+- The default order is newest first and pagination is stable.
+- No prize is distinguished from pending synchronization.
+- Values and placement come from the final snapshot.
 
-## Verificação
+## Verification
 
-Testes de autorização, paginação e estados visuais.
+Run authorization, pagination, and visual-state tests.

@@ -1,26 +1,26 @@
-# STORY-010 — Compra de créditos com Stripe
+# STORY-010 — Purchasing credits with Stripe
 
 **Status:** ready  
-**Dependências:** STORY-009
+**Dependencies:** STORY-009
 
-## História
+## Story
 
-Como usuário, quero adicionar créditos em USD à carteira por meio do Stripe.
+As a user, I want to add USD credits to my wallet through Stripe.
 
-## Escopo
+## Scope
 
-- Criar sessão/intenção de pagamento para valores permitidos.
-- Webhook assinado como autoridade para confirmar o crédito.
-- Persistir estado do pagamento, event ID e idempotência.
-- Tela mobile inicia checkout e acompanha o resultado.
+- Create a payment session/intent for permitted amounts.
+- Use a signed webhook as the authority for confirming the credit.
+- Persist payment state, event ID, and idempotency.
+- The mobile screen starts checkout and tracks the result.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Retorno do cliente sozinho nunca credita saldo.
-- Webhook repetido credita exatamente uma vez.
-- Assinatura inválida é rejeitada e falhas são retentáveis.
-- Valor/moeda do evento precisam coincidir com o pagamento criado.
+- The client return alone never credits the balance.
+- A repeated webhook credits the balance exactly once.
+- An invalid signature is rejected and failures are retryable.
+- The event amount and currency must match the created payment.
 
-## Verificação
+## Verification
 
-Testar via Stripe CLI os cenários sucesso, repetição, falha e assinatura inválida.
+Use the Stripe CLI to test success, repetition, failure, and invalid-signature scenarios.

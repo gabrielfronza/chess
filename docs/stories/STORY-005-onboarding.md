@@ -1,26 +1,26 @@
-# STORY-005 — Perfil e onboarding
+# STORY-005 — Profile and onboarding
 
 **Status:** ready  
-**Dependências:** STORY-004
+**Dependencies:** STORY-004
 
-## História
+## Story
 
-Como novo usuário, quero completar meus dados obrigatórios antes de participar de torneios.
+As a new user, I want to complete my required information before participating in tournaments.
 
-## Escopo
+## Scope
 
-- Formulário de nome, email, país, data de nascimento e aceite dos termos.
-- API `GET/PATCH /me`, validação e registro da versão/data dos termos.
-- Estado de onboarding e redirecionamento obrigatório.
-- Email vindo do Auth0 é exibido e tratado conforme política definida.
+- Form for name, email, country, date of birth, and terms acceptance.
+- `GET/PATCH /me` API, validation, and recording of the terms version and acceptance date.
+- Onboarding state and mandatory redirection.
+- Display and handle the Auth0 email according to the defined policy.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Campos e maioridade/política etária configurada são validados no servidor.
-- Aceite armazena versão e timestamp, não apenas booleano.
-- Usuário incompleto não acessa inscrição nem carteira.
-- Reabertura do app continua no passo correto.
+- Fields and the configured age-of-majority/age policy are validated on the server.
+- Acceptance stores a version and timestamp, not just a boolean.
+- An incomplete user cannot access registration or the wallet.
+- Reopening the app resumes at the correct step.
 
-## Verificação
+## Verification
 
-Testes de validação, autorização e fluxo mobile completo.
+Run validation and authorization tests and the complete mobile flow.

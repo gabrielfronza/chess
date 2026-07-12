@@ -1,26 +1,26 @@
-# STORY-017 — Testes E2E e preparação de release
+# STORY-017 — E2E tests and release preparation
 
 **Status:** ready  
-**Dependências:** STORY-012, STORY-014, STORY-016
+**Dependencies:** STORY-012, STORY-014, STORY-016
 
-## História
+## Story
 
-Como equipe, queremos provar o fluxo crítico em staging e ter uma entrega repetível.
+As a team, we want to prove the critical flow in staging and have a repeatable release.
 
-## Escopo
+## Scope
 
-- E2E da jornada login → onboarding → Lichess → créditos → inscrição → resultado → prêmio → histórico.
-- Cenários de falha prioritários: pagamento repetido, Lichess indisponível e saldo concorrente.
-- Builds de staging, migrations, seed seguro, backup/restore e checklist de release/rollback.
-- Documentar contas sandbox e separar segredos por ambiente.
+- E2E journey: login → onboarding → Lichess → credits → registration → result → prize → history.
+- Priority failure scenarios: repeated payment, unavailable Lichess, and concurrent balance updates.
+- Staging builds, migrations, safe seed, backup/restore, and a release/rollback checklist.
+- Document sandbox accounts and separate secrets by environment.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- Jornada feliz passa em CI/staging com integrações sandbox ou simuladas controladas.
-- Testes provam idempotência dos três fluxos financeiros críticos.
-- Deploy e rollback estão documentados e ensaiados.
-- Nenhum bloqueador crítico/alto permanece sem aceite explícito.
+- The happy path passes in CI/staging with controlled sandbox or simulated integrations.
+- Tests prove idempotency for the three critical financial flows.
+- Deployment and rollback are documented and rehearsed.
+- No critical/high blocker remains without explicit acceptance.
 
-## Verificação
+## Verification
 
-Executar pipeline completo, E2E em staging e exercício de rollback.
+Run the complete pipeline, staging E2E, and a rollback exercise.

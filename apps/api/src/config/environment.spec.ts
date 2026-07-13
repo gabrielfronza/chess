@@ -4,15 +4,19 @@ describe('validateEnvironment', () => {
   it('applies safe foundation defaults', () => {
     expect(
       validateEnvironment({
+        AUTH0_AUDIENCE: 'https://api.chess.local',
+        AUTH0_DOMAIN: 'example.auth0.com',
         DATABASE_URL:
-          'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_dev',
+          'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_dev',
       }),
     ).toEqual({
       NODE_ENV: 'development',
       PORT: 3000,
       APP_VERSION: '0.1.0',
+      AUTH0_AUDIENCE: 'https://api.chess.local',
+      AUTH0_DOMAIN: 'example.auth0.com',
       DATABASE_URL:
-        'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_dev',
+        'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_dev',
     });
   });
 
@@ -28,7 +32,7 @@ describe('validateEnvironment', () => {
     }
   });
 
-  it('requires an explicit database URL in every environment', () => {
+  it('requires explicit database and Auth0 settings in every environment', () => {
     expect(() => validateEnvironment({})).toThrow(
       'Invalid environment configuration: DATABASE_URL:',
     );

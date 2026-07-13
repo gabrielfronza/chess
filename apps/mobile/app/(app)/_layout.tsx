@@ -15,6 +15,10 @@ export default function AuthenticatedTabsLayout() {
       <Tabs.Screen name="wallet" options={{ title: 'Wallet' }} />
       <Tabs.Screen name="history" options={{ title: 'History' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
+      <Tabs.Screen
+        name="onboarding"
+        options={{ href: null, title: 'Onboarding' }}
+      />
     </Tabs>
   );
 }

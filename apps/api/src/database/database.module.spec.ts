@@ -35,7 +35,7 @@ describe('DatabaseModule', () => {
     const get = jest
       .fn()
       .mockReturnValue(
-        'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_dev',
+        'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_dev',
       );
     const config = {
       get,

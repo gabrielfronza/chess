@@ -1,6 +1,6 @@
 # STORY-004 — Authentication with Auth0
 
-**Status:** ready  
+**Status:** in progress  
 **Dependencies:** STORY-002, STORY-003
 
 ## Story

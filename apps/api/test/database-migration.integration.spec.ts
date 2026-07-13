@@ -3,11 +3,12 @@ import { createDataSourceOptions } from '../src/database/typeorm-options';
 
 const testDatabaseUrl =
   process.env.DATABASE_TEST_URL ??
-  'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_test';
+  'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_test';
 
 async function resetFoundationMigrationState(
   dataSource: DataSource,
 ): Promise<void> {
+  await dataSource.query('DROP TABLE IF EXISTS "users"');
   await dataSource.query('DROP TABLE IF EXISTS "schema_migration_checks"');
   await dataSource.query(`
     CREATE TABLE IF NOT EXISTS "typeorm_migrations" (
@@ -17,9 +18,15 @@ async function resetFoundationMigrationState(
       CONSTRAINT "PK_typeorm_migrations_id" PRIMARY KEY ("id")
     )
   `);
-  await dataSource.query('DELETE FROM "typeorm_migrations" WHERE "name" = $1', [
-    'CheckDatabaseFoundation1710000000000',
-  ]);
+  await dataSource.query(
+    'DELETE FROM "typeorm_migrations" WHERE "name" = ANY($1)',
+    [
+      [
+        'CheckDatabaseFoundation1710000000000',
+        'CreateUsersForAuth1720000000000',
+      ],
+    ],
+  );
 }
 
 describe('database migrations', () => {
@@ -39,7 +46,7 @@ describe('database migrations', () => {
     }
   });
 
-  it('applies and reverts the foundation migration', async () => {
+  it('applies and reverts all database migrations', async () => {
     await dataSource.runMigrations();
 
     const appliedRows = await dataSource.query<Array<{ label: string }>>(
@@ -47,13 +54,23 @@ describe('database migrations', () => {
     );
     expect(appliedRows).toEqual([{ label: 'story-002-foundation' }]);
 
+    const appliedTables = await dataSource.query<
+      Array<{ usersTable: string | null }>
+    >(`
+      SELECT to_regclass('public.users') AS "usersTable"
+    `);
+    expect(appliedTables).toEqual([{ usersTable: 'users' }]);
+
+    await dataSource.undoLastMigration();
     await dataSource.undoLastMigration();
 
     const revertedRows = await dataSource.query<
-      Array<{ tableName: string | null }>
+      Array<{ foundationTable: string | null; usersTable: string | null }>
     >(`
-      SELECT to_regclass('public.schema_migration_checks') AS "tableName"
+      SELECT
+        to_regclass('public.schema_migration_checks') AS "foundationTable",
+        to_regclass('public.users') AS "usersTable"
     `);
-    expect(revertedRows).toEqual([{ tableName: null }]);
+    expect(revertedRows).toEqual([{ foundationTable: null, usersTable: null }]);
   });
 });

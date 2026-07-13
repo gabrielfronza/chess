@@ -1,1 +1,1 @@
-CREATE DATABASE chess_app_test;
+CREATE DATABASE checkmatetour_test;

@@ -1,13 +1,19 @@
 import { Test } from '@nestjs/testing';
 
 process.env.DATABASE_URL =
-  'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_test';
+  'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_test';
+process.env.AUTH0_DOMAIN = 'example.auth0.com';
+process.env.AUTH0_AUDIENCE = 'https://api.chess.local';
 
 import { AppModule } from './app.module';
 import { HealthService } from './health/health.service';
 
 jest.mock('./database/database.module', () => ({
   DatabaseModule: class DatabaseModule {},
+}));
+
+jest.mock('./auth/auth.module', () => ({
+  AuthModule: class AuthModule {},
 }));
 
 describe('AppModule', () => {

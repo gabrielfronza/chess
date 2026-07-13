@@ -1,4 +1,4 @@
-# Chess Tournament Platform
+# CheckmateTour
 
 MVP foundation for paid chess tournaments. The platform manages users, registrations, wallets, payments, and prizes; Lichess manages games, pairings, and standings.
 
@@ -7,7 +7,7 @@ MVP foundation for paid chess tournaments. The platform manages users, registrat
 - `apps/mobile`: React Native application with Expo and TypeScript, registered as an Nx project.
 - `apps/api`: NestJS API with TypeScript, registered as an Nx project.
 - `packages/contracts`: cross-application contracts added incrementally by the story that introduces a concrete shared consumer; Story 01 creates only the package boundary and tooling.
-- Nx is the root orchestrator for serve, build, lint, test, and E2E targets. Database-migration targets will be added in STORY-002.
+- Nx is the root orchestrator for serve, build, lint, test, database migration, and E2E targets.
 - `docs/IMPLEMENTATION_PLAN.md`: MVP implementation order.
 - `docs/stories`: executable backlog, one story per file.
 
@@ -36,7 +36,12 @@ npm run dev:mobile
 
 The API health endpoint responds at `http://localhost:3000/api/v1/health`.
 
-Environment variables are documented in `.env.example`. STORY-001 validates `NODE_ENV`, `APP_VERSION`, and `PORT`; variables owned by later stories are activated when those stories are implemented.
+Environment variables are documented in `.env.example`. The API validates its runtime configuration at startup, including the database connection and Auth0 issuer/audience values. The mobile app validates its public Expo configuration before using API or Auth0 flows.
+
+For STORY-004 Auth0 testing, configure these values locally:
+
+- API: `AUTH0_DOMAIN`, `AUTH0_AUDIENCE`
+- Mobile: `EXPO_PUBLIC_AUTH0_DOMAIN`, `EXPO_PUBLIC_AUTH0_CLIENT_ID`, `EXPO_PUBLIC_AUTH0_AUDIENCE`
 
 ## Workspace commands
 
@@ -68,7 +73,7 @@ npm run db:seed
 # Start both applications
 npm run dev
 
-# Verify the database migration lifecycle against chess_app_test
+# Verify the database migration lifecycle against checkmatetour_test
 npm run test:db
 
 # Run the current Playwright API smoke test
@@ -81,7 +86,7 @@ The API and mobile coverage commands produce HTML reports at `apps/api/coverage/
 
 ## Database
 
-STORY-002 uses Docker Compose, PostgreSQL, and TypeORM migrations. Local Compose resources use the `chess_app` project name, the `chess_app_dev` database for development, and `chess_app_test` for integration tests. The database container does not set a fixed `container_name`, and the host port is configurable through `POSTGRES_PORT`.
+STORY-002 uses Docker Compose, PostgreSQL, and TypeORM migrations. Local Compose resources use the `checkmatetour` project name, the `checkmatetour_dev` database for development, and `checkmatetour_test` for integration tests. The database container does not set a fixed `container_name`, and the host port is configurable through `POSTGRES_PORT`.
 
 ```bash
 npm run db:up

@@ -3,11 +3,11 @@ import { ReactNode } from 'react';
 import { Text } from 'react-native';
 import HistoryScreen from '../app/(app)/history';
 import HomeScreen from '../app/(app)/home';
+import OnboardingScreen from '../app/(app)/onboarding';
 import ProfileScreen from '../app/(app)/profile';
 import TournamentDetailScreen from '../app/(app)/tournaments/[id]';
 import TournamentsScreen from '../app/(app)/tournaments';
 import WalletScreen from '../app/(app)/wallet';
-import OnboardingScreen from '../app/(public)/onboarding';
 import IndexRoute from '../app/index';
 
 const MockText = Text;
@@ -31,6 +31,14 @@ jest.mock('../components/app-button', () => {
     ),
   };
 });
+
+jest.mock('../components/auth/auth-logout-button', () => ({
+  AuthLogoutButton: () => {
+    const { Text: MockLogoutText } = jest.requireActual('react-native');
+
+    return <MockLogoutText>Sign out</MockLogoutText>;
+  },
+}));
 
 jest.mock('../components/app-screen', () => ({
   AppScreen: ({

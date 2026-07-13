@@ -48,9 +48,9 @@ describe('WelcomeScreen', () => {
   it('renders the public landing content', async () => {
     const { getByText } = await render(<WelcomeScreen />);
 
-    expect(getByText('Chess App')).toBeTruthy();
+    expect(getByText('CheckmateTour')).toBeTruthy();
     expect(getByText('Tournament play, organized.')).toBeTruthy();
     expect(getByText('Public route')).toBeTruthy();
-    expect(getByText('Preview onboarding')).toBeTruthy();
+    expect(getByText('Sign in')).toBeTruthy();
   });
 });

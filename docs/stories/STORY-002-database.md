@@ -10,8 +10,8 @@ As a team, we want an isolated local database and a versioned persistence founda
 ## Scope
 
 - Docker Compose with PostgreSQL and TypeORM.
-- Use the Compose project name `chess_app`, database name `chess_app_dev`, and a configurable project-specific host port; do not set a fixed `container_name`.
-- Provide a separate `chess_app_test` database for integration tests.
+- Use the Compose project name `checkmatetour`, database name `checkmatetour_dev`, and a configurable project-specific host port; do not set a fixed `container_name`.
+- Provide a separate `checkmatetour_test` database for integration tests.
 - Configure a `DataSource` shared by the application and TypeORM CLI.
 - Version migrations for every schema change; keep `synchronize: false` in application environments.
 - Add an Nx `api:db-migrate` target and make local `api:serve` depend on it.

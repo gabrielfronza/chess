@@ -1,6 +1,6 @@
 # STORY-004 — Authentication with Auth0
 
-**Status:** in progress  
+**Status:** complete  
 **Dependencies:** STORY-002, STORY-003
 
 ## Story
@@ -23,4 +23,4 @@ As a visitor, I want to create an account and sign in securely to access the pla
 
 ## Verification
 
-Run guard unit tests, synchronization integration tests, and a login smoke test.
+Completed with API auth/user unit coverage, mobile Auth0/session tests, route-guard tests, and manual login/logout smoke testing.

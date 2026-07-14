@@ -29,7 +29,7 @@
 - Production application startup never runs migrations. Starting with STORY-002, CI/CD will run `api:db-migrate` once as an explicit release step before deploying the new application version.
 - Migrations must be backward-compatible with the currently deployed application so rolling deployments and rollback remain safe.
 - Database objects follow the same incremental ownership rule: each story owns the entities, constraints, indexes, migrations, and optional idempotent seeds required for its scope. The database foundation does not pre-create the full domain model.
-- Local Compose resources use the `chess_app` project namespace, project-specific development/test database names, and no fixed `container_name`.
+- Local Compose resources use the `checkmatetour` project namespace, project-specific development/test database names, and no fixed `container_name`.
 
 ## API modules
 

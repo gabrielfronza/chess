@@ -1,4 +1,4 @@
-export const publicRoutes = ['/welcome', '/onboarding'] as const;
+export const publicRoutes = ['/welcome', '/login'] as const;
 
 export const authenticatedTabs = [
   'home',
@@ -7,6 +7,8 @@ export const authenticatedTabs = [
   'history',
   'profile',
 ] as const;
+
+export const authenticatedRoutes = ['/onboarding'] as const;
 
 export function createTournamentDetailHref(
   id: string,

@@ -6,14 +6,14 @@ export default function WelcomeScreen() {
   return (
     <AppScreen
       description="Browse chess tournaments, register securely, and track results from one mobile app."
-      eyebrow="Chess App"
+      eyebrow="CheckmateTour"
       title="Tournament play, organized."
     >
       <PlaceholderCard
-        body="Auth and onboarding arrive in later stories. This shell keeps the public route ready for them."
+        body="Auth and authenticated onboarding arrive through protected flows. Public visitors start here."
         title="Public route"
       />
-      <AppButton href="/onboarding">Preview onboarding</AppButton>
+      <AppButton href="/login">Sign in</AppButton>
     </AppScreen>
   );
 }

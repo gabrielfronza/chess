@@ -6,14 +6,15 @@ import {
 describe('typeorm options', () => {
   const environment = {
     DATABASE_URL:
-      'postgresql://chess_app:chess_app_local@localhost:54329/chess_app_dev',
+      'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_dev',
   };
 
   it('creates shared DataSource options with migrations and synchronization disabled', () => {
     expect(createDataSourceOptions(environment)).toMatchObject({
       type: 'postgres',
       url: environment.DATABASE_URL,
-      entities: [],
+      entities: [expect.any(Function)],
+      migrations: [expect.any(Function), expect.any(Function)],
       migrationsTableName: 'typeorm_migrations',
       synchronize: false,
     });

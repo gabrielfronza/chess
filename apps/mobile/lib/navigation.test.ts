@@ -1,4 +1,5 @@
 import {
+  authenticatedRoutes,
   authenticatedTabs,
   createTournamentDetailHref,
   publicRoutes,
@@ -6,7 +7,7 @@ import {
 
 describe('navigation manifest', () => {
   it('keeps public routes separate from authenticated tabs', () => {
-    expect(publicRoutes).toEqual(['/welcome', '/onboarding']);
+    expect(publicRoutes).toEqual(['/welcome', '/login']);
     expect(authenticatedTabs).toEqual([
       'home',
       'tournaments',
@@ -14,6 +15,7 @@ describe('navigation manifest', () => {
       'history',
       'profile',
     ]);
+    expect(authenticatedRoutes).toEqual(['/onboarding']);
   });
 
   it('creates the tournament detail deep-link path', () => {

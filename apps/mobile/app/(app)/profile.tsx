@@ -1,4 +1,5 @@
 import { AppScreen } from '../../components/app-screen';
+import { AuthLogoutButton } from '../../components/auth/auth-logout-button';
 import { PlaceholderCard } from '../../components/placeholder-card';
 
 export default function ProfileScreen() {
@@ -12,6 +13,7 @@ export default function ProfileScreen() {
         body="The profile shell is ready for Auth0 identity, Lichess linking, and player preferences."
         title="Profile placeholder"
       />
+      <AuthLogoutButton />
     </AppScreen>
   );
 }

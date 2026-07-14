@@ -28,6 +28,15 @@ When finished, report: changed files, decisions made, commands run, test results
 - New endpoints include authorization, validation, and documented request/response behavior when applicable.
 - Repeatable operations are idempotent when applicable.
 
+## API module organization
+
+- Keep NestJS modules organized by responsibility instead of placing every file at the module root.
+- Use folder names such as `controllers`, `guards`, `decorators`, `providers`, `requests`, `types`, `entities`, `mappers`, and `services` when the module owns those concepts.
+- Each responsibility folder must expose its public production files through an `index.ts` barrel. Import from the folder barrel, for example `import { AuthController } from './controllers';`.
+- Do not export test files from barrels.
+- Keep module internals local until another application or package has a concrete need for a shared contract.
+- API persistence entities that need the standard `id`, `createdAt`, `updatedAt`, and `deletedAt` columns should extend `AppBaseEntity` from `apps/api/src/database/entities`.
+
 ## Mobile testing boundaries
 
 - Keep Expo Router navigation smoke tests shallow. Route smoke tests should prove that route modules render the expected route-level text and placeholders, not re-test every reusable UI component below them.

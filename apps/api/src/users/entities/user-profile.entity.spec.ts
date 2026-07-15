@@ -1,7 +1,12 @@
 import { getMetadataArgsStorage } from 'typeorm';
+import { AppBaseEntity } from '../../database/entities';
 import { UserProfile, User } from '.';
 
 describe('user profile entities', () => {
+  it('reuses the shared base entity for id and audit timestamps', () => {
+    expect(UserProfile.prototype).toBeInstanceOf(AppBaseEntity);
+  });
+
   it('defines a one-to-one profile relation from users to user profiles', () => {
     const relation = getMetadataArgsStorage().relations.find(
       (metadata) =>

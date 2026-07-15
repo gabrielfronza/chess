@@ -1,18 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { AppBaseEntity } from '../../database/entities';
 import { User } from './user.entity';
 
 @Entity({ name: 'user_profiles' })
-export class UserProfile {
-  @PrimaryColumn({ name: 'user_id', type: 'uuid' })
+export class UserProfile extends AppBaseEntity {
+  @Column({ name: 'user_id', type: 'uuid', unique: true })
   userId!: string;
 
   @OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
@@ -27,13 +19,4 @@ export class UserProfile {
 
   @Column({ name: 'date_of_birth', nullable: true, type: 'date' })
   dateOfBirth!: string | null;
-
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-  createdAt!: Date;
-
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
-  updatedAt!: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'timestamptz' })
-  deletedAt!: Date | null;
 }

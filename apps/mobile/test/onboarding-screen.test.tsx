@@ -1,18 +1,19 @@
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { OnboardingProfileForm } from '../app/(app)/onboarding';
 import { type ProfileApi } from '../lib/profile-api';
-import {
-  clearCachedProfile,
-  getCachedProfile,
-} from '../lib/profile-session-store';
 import { colors } from '../lib/theme';
 
 const mockReplace = jest.fn();
 const mockLoadValid = jest.fn();
+const mockSetCachedProfile = jest.fn();
 const mockUpdateOnboardingProfile = jest.fn();
 
 jest.mock('expo-router', () => ({
   useRouter: () => ({ replace: mockReplace }),
+}));
+
+jest.mock('../lib/profile-session-store', () => ({
+  setCachedProfile: (profile: unknown) => mockSetCachedProfile(profile),
 }));
 
 jest.mock('../components/app-button', () => {
@@ -55,7 +56,6 @@ function renderOnboardingProfileForm() {
 
 describe('OnboardingScreen', () => {
   beforeEach(() => {
-    clearCachedProfile();
     jest.clearAllMocks();
     mockLoadValid.mockResolvedValue({ accessToken: 'access-token' });
     mockUpdateOnboardingProfile.mockResolvedValue({
@@ -73,11 +73,9 @@ describe('OnboardingScreen', () => {
     const { getByLabelText, getByRole } = await renderOnboardingProfileForm();
 
     await fireEvent.changeText(getByLabelText('Display name'), 'Player One');
-    await fireEvent.changeText(getByLabelText('Country'), 'Brazil');
+    await fireEvent.changeText(getByLabelText('Country'), 'BR');
     await fireEvent.changeText(getByLabelText('Date of birth'), '1990-01-02');
-    await act(async () => {
-      getByRole('button', { name: 'Complete onboarding' }).props.onPress();
-    });
+    await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
 
     await waitFor(() =>
       expect(mockUpdateOnboardingProfile).toHaveBeenCalledWith('access-token', {
@@ -86,7 +84,7 @@ describe('OnboardingScreen', () => {
         displayName: 'Player One',
       }),
     );
-    expect(getCachedProfile()).toEqual({
+    expect(mockSetCachedProfile).toHaveBeenCalledWith({
       country: 'BR',
       dateOfBirth: '1990-01-02',
       displayName: 'Player One',
@@ -117,13 +115,10 @@ describe('OnboardingScreen', () => {
     const { getByLabelText, getByRole } = await renderOnboardingProfileForm();
 
     await fireEvent.changeText(getByLabelText('Country'), 'BR');
+    await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
 
-    await act(async () => {
-      getByRole('button', { name: 'Complete onboarding' }).props.onPress();
-    });
-
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/welcome'));
     expect(mockUpdateOnboardingProfile).not.toHaveBeenCalled();
-    expect(mockReplace).toHaveBeenCalledWith('/welcome');
   });
 
   it('requires a valid country before submitting', async () => {
@@ -131,9 +126,7 @@ describe('OnboardingScreen', () => {
       await renderOnboardingProfileForm();
 
     await fireEvent.changeText(getByLabelText('Country'), 'Atlantis');
-    await act(async () => {
-      getByRole('button', { name: 'Complete onboarding' }).props.onPress();
-    });
+    await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
 
     expect(getByText('Choose a valid country from the list.')).toBeTruthy();
     expect(mockLoadValid).not.toHaveBeenCalled();
@@ -144,7 +137,7 @@ describe('OnboardingScreen', () => {
     const { getByLabelText, getByRole } = await renderOnboardingProfileForm();
 
     await fireEvent.changeText(getByLabelText('Country'), 'bra');
-    fireEvent.press(getByRole('button', { name: 'Select Brazil' }));
+    await fireEvent.press(getByRole('button', { name: 'Select Brazil' }));
 
     await waitFor(() =>
       expect(getByLabelText('Country').props.value).toBe('Brazil'),

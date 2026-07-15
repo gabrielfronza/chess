@@ -1,5 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
-import { OnboardingProfileForm } from '../app/(app)/onboarding';
+import {
+  OnboardingProfileForm,
+  submitOnboardingProfile,
+} from '../app/(app)/onboarding';
 import { type ProfileApi } from '../lib/profile-api';
 import { colors } from '../lib/theme';
 
@@ -64,46 +67,47 @@ function renderOnboardingProfileForm(
 }
 
 describe('OnboardingScreen', () => {
+  const profileValues = {
+    country: 'BR',
+    dateOfBirth: '1990-01-02',
+    displayName: 'Player One',
+  };
+  const updatedProfile = {
+    ...profileValues,
+    email: 'player@example.com',
+    id: 'user-id',
+    onboardingCompleted: true,
+    roles: ['USER' as const],
+  };
+  const submitOptions = {
+    authTokenStorage: { loadValid: mockLoadValid },
+    cacheProfile: mockSetCachedProfile,
+    profileApiClient,
+    router: { replace: mockReplace },
+    setError: jest.fn(),
+    setIsSubmitting: jest.fn(),
+    ...profileValues,
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockLoadValid.mockResolvedValue({ accessToken: 'access-token' });
-    mockUpdateOnboardingProfile.mockResolvedValue({
-      country: 'BR',
-      dateOfBirth: '1990-01-02',
-      displayName: 'Player One',
-      email: 'player@example.com',
-      id: 'user-id',
-      onboardingCompleted: true,
-      roles: ['USER'],
-    });
+    mockUpdateOnboardingProfile.mockResolvedValue(updatedProfile);
   });
 
   it('submits onboarding profile details and routes home', async () => {
-    const { getByRole } = await renderOnboardingProfileForm({
+    await submitOnboardingProfile(submitOptions);
+
+    expect(submitOptions.setError).toHaveBeenCalledWith(null);
+    expect(submitOptions.setIsSubmitting).toHaveBeenNthCalledWith(1, true);
+    expect(mockUpdateOnboardingProfile).toHaveBeenCalledWith('access-token', {
       country: 'BR',
       dateOfBirth: '1990-01-02',
       displayName: 'Player One',
     });
-
-    await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
-
-    await waitFor(() =>
-      expect(mockUpdateOnboardingProfile).toHaveBeenCalledWith('access-token', {
-        country: 'BR',
-        dateOfBirth: '1990-01-02',
-        displayName: 'Player One',
-      }),
-    );
-    expect(mockSetCachedProfile).toHaveBeenCalledWith({
-      country: 'BR',
-      dateOfBirth: '1990-01-02',
-      displayName: 'Player One',
-      email: 'player@example.com',
-      id: 'user-id',
-      onboardingCompleted: true,
-      roles: ['USER'],
-    });
+    expect(mockSetCachedProfile).toHaveBeenCalledWith(updatedProfile);
     expect(mockReplace).toHaveBeenCalledWith('/home');
+    expect(submitOptions.setIsSubmitting).toHaveBeenLastCalledWith(false);
   });
 
   it('uses muted placeholder styling for empty fields', async () => {
@@ -122,13 +126,26 @@ describe('OnboardingScreen', () => {
 
   it('routes back to welcome when there is no valid session', async () => {
     mockLoadValid.mockResolvedValue(null);
-    const { getByLabelText, getByRole } = await renderOnboardingProfileForm();
 
-    await fireEvent.changeText(getByLabelText('Country'), 'BR');
-    await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
+    await submitOnboardingProfile(submitOptions);
 
-    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/welcome'));
+    expect(mockReplace).toHaveBeenCalledWith('/welcome');
     expect(mockUpdateOnboardingProfile).not.toHaveBeenCalled();
+  });
+
+  it('shows the backend validation fallback when submit fails', async () => {
+    const setError = jest.fn();
+    mockUpdateOnboardingProfile.mockRejectedValue(new Error('invalid profile'));
+
+    await submitOnboardingProfile({
+      ...submitOptions,
+      setError,
+    });
+
+    expect(setError).toHaveBeenLastCalledWith(
+      'Check your profile details and try again.',
+    );
+    expect(mockReplace).not.toHaveBeenCalled();
   });
 
   it('requires a valid country before submitting', async () => {

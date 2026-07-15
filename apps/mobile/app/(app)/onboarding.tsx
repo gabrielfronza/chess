@@ -17,7 +17,11 @@ import {
   normalizeCountryInput,
   type CountryOption,
 } from '../../lib/countries';
-import { profileApi, type ProfileApi } from '../../lib/profile-api';
+import {
+  profileApi,
+  type ProfileApi,
+  type UserProfileResponse,
+} from '../../lib/profile-api';
 import { setCachedProfile } from '../../lib/profile-session-store';
 import { globalStyles } from '../../lib/styles';
 import { colors, spacing } from '../../lib/theme';
@@ -46,6 +50,63 @@ type OnboardingProfileValues = {
   displayName: string;
 };
 
+type OnboardingProfileSubmitOptions = OnboardingProfileValues & {
+  authTokenStorage: Pick<AuthTokenStorage, 'loadValid'>;
+  cacheProfile?: (profile: UserProfileResponse) => void;
+  profileApiClient: Pick<ProfileApi, 'updateOnboardingProfile'>;
+  router: Pick<ReturnType<typeof useRouter>, 'replace'>;
+  setError: (error: string | null) => void;
+  setIsSubmitting: (isSubmitting: boolean) => void;
+};
+
+export async function submitOnboardingProfile({
+  authTokenStorage,
+  cacheProfile = setCachedProfile,
+  country,
+  dateOfBirth,
+  displayName,
+  profileApiClient,
+  router,
+  setError,
+  setIsSubmitting,
+}: OnboardingProfileSubmitOptions) {
+  setError(null);
+  setIsSubmitting(true);
+
+  try {
+    const countryCode = normalizeCountryInput(country);
+
+    if (!countryCode) {
+      setError('Choose a valid country from the list.');
+
+      return;
+    }
+
+    const session = await authTokenStorage.loadValid();
+
+    if (!session) {
+      router.replace('/welcome');
+
+      return;
+    }
+
+    const updatedProfile = await profileApiClient.updateOnboardingProfile(
+      session.accessToken,
+      {
+        country: countryCode,
+        dateOfBirth,
+        displayName,
+      },
+    );
+    cacheProfile(updatedProfile);
+    router.replace('/home');
+  } catch {
+    setError('Check your profile details and try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+}
+
 export function OnboardingProfileForm({
   authTokenStorage,
   initialValues,
@@ -61,43 +122,17 @@ export function OnboardingProfileForm({
   );
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const submitProfile = async () => {
-    setError(null);
-    setIsSubmitting(true);
-
-    try {
-      const countryCode = normalizeCountryInput(country);
-
-      if (!countryCode) {
-        setError('Choose a valid country from the list.');
-
-        return;
-      }
-
-      const session = await authTokenStorage.loadValid();
-
-      if (!session) {
-        router.replace('/welcome');
-
-        return;
-      }
-
-      const updatedProfile = await profileApiClient.updateOnboardingProfile(
-        session.accessToken,
-        {
-          country: countryCode,
-          dateOfBirth,
-          displayName,
-        },
-      );
-      setCachedProfile(updatedProfile);
-      router.replace('/home');
-    } catch {
-      setError('Check your profile details and try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const submitProfile = () =>
+    submitOnboardingProfile({
+      authTokenStorage,
+      country,
+      dateOfBirth,
+      displayName,
+      profileApiClient,
+      router,
+      setError,
+      setIsSubmitting,
+    });
 
   return (
     <AppScreen

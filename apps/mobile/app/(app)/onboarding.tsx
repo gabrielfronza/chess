@@ -143,7 +143,7 @@ export function OnboardingProfileForm({
       <View style={styles.form}>
         <AppText variant="sectionTitle">Required profile</AppText>
         <AppText variant="body">
-          Your Auth0 email stays read-only. Add the tournament profile details
+          Your account email stays read-only. Add the tournament profile details
           we need before registrations and wallet access.
         </AppText>
 

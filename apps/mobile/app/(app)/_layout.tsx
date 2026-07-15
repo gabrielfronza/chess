@@ -78,6 +78,7 @@ export default function AuthenticatedTabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         headerShadowVisible: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,

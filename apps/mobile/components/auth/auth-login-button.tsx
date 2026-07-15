@@ -17,8 +17,8 @@ export function AuthLoginButton() {
   };
 
   return (
-    <AppButton accessibilityLabel="Sign in with Auth0" onPress={handleSignIn}>
-      {ready ? 'Sign in with Auth0' : 'Preparing sign in'}
+    <AppButton accessibilityLabel="Sign in" onPress={handleSignIn}>
+      {ready ? 'Sign in' : 'Preparing sign in'}
     </AppButton>
   );
 }

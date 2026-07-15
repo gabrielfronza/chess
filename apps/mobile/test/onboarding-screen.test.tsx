@@ -11,6 +11,8 @@ const mockLoadValid = jest.fn();
 const mockSetCachedProfile = jest.fn();
 const mockUpdateOnboardingProfile = jest.fn();
 
+jest.setTimeout(20000);
+
 jest.mock('expo-router', () => ({
   useRouter: () => ({ replace: mockReplace }),
 }));

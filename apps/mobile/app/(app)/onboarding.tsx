@@ -35,18 +35,30 @@ export default function OnboardingScreen() {
 
 type OnboardingProfileFormProps = {
   authTokenStorage: Pick<AuthTokenStorage, 'loadValid'>;
+  initialValues?: Partial<OnboardingProfileValues>;
   profileApiClient: Pick<ProfileApi, 'updateOnboardingProfile'>;
   router: Pick<ReturnType<typeof useRouter>, 'replace'>;
 };
 
+type OnboardingProfileValues = {
+  country: string;
+  dateOfBirth: string;
+  displayName: string;
+};
+
 export function OnboardingProfileForm({
   authTokenStorage,
+  initialValues,
   profileApiClient,
   router,
 }: OnboardingProfileFormProps) {
-  const [country, setCountry] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [country, setCountry] = useState(initialValues?.country ?? '');
+  const [dateOfBirth, setDateOfBirth] = useState(
+    initialValues?.dateOfBirth ?? '',
+  );
+  const [displayName, setDisplayName] = useState(
+    initialValues?.displayName ?? '',
+  );
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitProfile = async () => {

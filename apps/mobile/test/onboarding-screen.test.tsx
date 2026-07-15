@@ -44,10 +44,19 @@ const profileApiClient: Pick<ProfileApi, 'updateOnboardingProfile'> = {
   updateOnboardingProfile: mockUpdateOnboardingProfile,
 };
 
-function renderOnboardingProfileForm() {
+type OnboardingProfileInitialValues = {
+  country: string;
+  dateOfBirth: string;
+  displayName: string;
+};
+
+function renderOnboardingProfileForm(
+  initialValues?: Partial<OnboardingProfileInitialValues>,
+) {
   return render(
     <OnboardingProfileForm
       authTokenStorage={{ loadValid: mockLoadValid }}
+      initialValues={initialValues}
       profileApiClient={profileApiClient}
       router={{ replace: mockReplace }}
     />,
@@ -70,11 +79,12 @@ describe('OnboardingScreen', () => {
   });
 
   it('submits onboarding profile details and routes home', async () => {
-    const { getByLabelText, getByRole } = await renderOnboardingProfileForm();
+    const { getByRole } = await renderOnboardingProfileForm({
+      country: 'BR',
+      dateOfBirth: '1990-01-02',
+      displayName: 'Player One',
+    });
 
-    await fireEvent.changeText(getByLabelText('Display name'), 'Player One');
-    await fireEvent.changeText(getByLabelText('Country'), 'BR');
-    await fireEvent.changeText(getByLabelText('Date of birth'), '1990-01-02');
     await fireEvent.press(getByRole('button', { name: 'Complete onboarding' }));
 
     await waitFor(() =>

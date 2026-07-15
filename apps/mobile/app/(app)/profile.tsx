@@ -10,7 +10,7 @@ export default function ProfileScreen() {
       title="Player profile"
     >
       <PlaceholderCard
-        body="The profile shell is ready for Auth0 identity, Lichess linking, and player preferences."
+        body="The profile shell is ready for account identity, Lichess linking, and player preferences."
         title="Profile placeholder"
       />
       <AuthLogoutButton />

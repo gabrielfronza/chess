@@ -17,7 +17,7 @@ describe('AuthLogoutButton', () => {
     jest.clearAllMocks();
   });
 
-  it('clears the local Auth0 session and navigates to welcome when pressed', async () => {
+  it('clears the local auth session and navigates to welcome when pressed', async () => {
     const signOut = jest.fn().mockResolvedValue(undefined);
     (useAuth0Login as jest.Mock).mockReturnValue({ signOut });
     const { getByRole } = await render(<AuthLogoutButton />);

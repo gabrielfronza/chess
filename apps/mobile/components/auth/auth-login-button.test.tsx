@@ -24,7 +24,7 @@ describe('AuthLoginButton', () => {
     jest.clearAllMocks();
   });
 
-  it('starts Auth0 Universal Login and navigates home after completed onboarding', async () => {
+  it('starts sign in and navigates home after completed onboarding', async () => {
     const signIn = jest.fn().mockResolvedValue({
       accessToken: 'access-token',
       expiresAt: null,
@@ -37,7 +37,7 @@ describe('AuthLoginButton', () => {
     });
     const { getByRole } = await render(<AuthLoginButton />);
 
-    await fireEvent.press(getByRole('button', { name: 'Sign in with Auth0' }));
+    await fireEvent.press(getByRole('button', { name: 'Sign in' }));
 
     expect(signIn).toHaveBeenCalled();
     expect(profileApi.getMe).toHaveBeenCalledWith('access-token');
@@ -57,7 +57,7 @@ describe('AuthLoginButton', () => {
     });
     const { getByRole } = await render(<AuthLoginButton />);
 
-    await fireEvent.press(getByRole('button', { name: 'Sign in with Auth0' }));
+    await fireEvent.press(getByRole('button', { name: 'Sign in' }));
 
     expect(mockReplace).toHaveBeenCalledWith('/onboarding');
   });
@@ -67,7 +67,7 @@ describe('AuthLoginButton', () => {
     (useAuth0Login as jest.Mock).mockReturnValue({ ready: true, signIn });
     const { getByRole } = await render(<AuthLoginButton />);
 
-    await fireEvent.press(getByRole('button', { name: 'Sign in with Auth0' }));
+    await fireEvent.press(getByRole('button', { name: 'Sign in' }));
 
     expect(mockReplace).not.toHaveBeenCalled();
   });

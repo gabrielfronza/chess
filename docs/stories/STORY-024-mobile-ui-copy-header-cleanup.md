@@ -1,6 +1,6 @@
 # STORY-024 — Mobile UI copy and header cleanup
 
-**Status:** ready  
+**Status:** done  
 **Dependencies:** STORY-003, STORY-004, STORY-005
 
 ## Story

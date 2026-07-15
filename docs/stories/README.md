@@ -25,5 +25,6 @@ Stories begin as `ready`, subject to their declared dependencies. Their individu
 | 019 | Paid tournament registration rollout | 009, 010, 011, 013, 016, 017 |
 | 020 | Terms acceptance | 005 |
 | 021 | Onboarding error feedback | 005 |
+| 022 | Country dropdown | 005 |
 
 Each story includes an objective, scope, acceptance criteria, tasks, and verification. Technical details may change during implementation, but changing invariants or acceptance criteria requires an explicit decision.

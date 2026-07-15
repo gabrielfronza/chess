@@ -20,6 +20,7 @@ jest.mock('expo-router', () => ({
     <MockText>Redirect to {href}</MockText>
   ),
   useLocalSearchParams: () => ({ id: 'story-003-preview' }),
+  useRouter: () => ({ replace: jest.fn() }),
 }));
 
 jest.mock('../components/app-button', () => {
@@ -115,7 +116,7 @@ describe('mobile navigation shell', () => {
   it('renders the onboarding route', async () => {
     const { getByText } = await render(<OnboardingScreen />);
 
-    expect(getByText('Set up your tournament profile')).toBeTruthy();
+    expect(getByText('Set up your profile')).toBeTruthy();
   });
 
   it('renders the home tab placeholder', async () => {

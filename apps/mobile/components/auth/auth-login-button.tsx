@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { AppButton } from '../app-button';
 import { useAuth0Login } from '../../lib/auth/use-auth0-login';
+import { profileApi } from '../../lib/profile-api';
 
 export function AuthLoginButton() {
   const router = useRouter();
@@ -9,7 +10,9 @@ export function AuthLoginButton() {
     const session = await signIn();
 
     if (session) {
-      router.replace('/home');
+      const profile = await profileApi.getMe(session.accessToken);
+
+      router.replace(profile.onboardingCompleted ? '/home' : '/onboarding');
     }
   };
 

@@ -1,4 +1,4 @@
-import { createHttpClient } from './http-client';
+import { createBearerHeaders, createHttpClient } from './http-client';
 
 function createJsonResponse(body: unknown, status = 200): Response {
   return {
@@ -20,10 +20,36 @@ describe('createHttpClient', () => {
     expect(fetcher).toHaveBeenCalledWith(
       'http://localhost:3000/api/v1/health',
       {
+        body: undefined,
+        headers: {},
         method: 'GET',
         signal: undefined,
       },
     );
+  });
+
+  it('sends JSON PATCH requests with custom headers', async () => {
+    const fetcher = jest
+      .fn()
+      .mockResolvedValue(createJsonResponse({ saved: true }));
+    const client = createHttpClient('http://localhost:3000/api/v1', fetcher);
+
+    await expect(
+      client.patch('/me', {
+        body: { displayName: 'Player One' },
+        headers: createBearerHeaders('access-token'),
+      }),
+    ).resolves.toEqual({ saved: true });
+
+    expect(fetcher).toHaveBeenCalledWith('http://localhost:3000/api/v1/me', {
+      body: JSON.stringify({ displayName: 'Player One' }),
+      headers: {
+        Authorization: 'Bearer access-token',
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      signal: undefined,
+    });
   });
 
   it('throws for non-success responses', async () => {

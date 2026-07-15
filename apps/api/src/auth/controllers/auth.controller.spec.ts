@@ -8,6 +8,7 @@ describe('AuthController', () => {
     const user = {
       id: 'user-id',
       email: 'player@example.com',
+      profile: null,
       roles: ['USER'],
     } as User;
     const syncAuthenticatedUser = jest.fn().mockResolvedValue(user);
@@ -20,7 +21,11 @@ describe('AuthController', () => {
 
     await expect(controller.getMe(authenticatedUser)).resolves.toEqual({
       id: 'user-id',
+      country: null,
+      dateOfBirth: null,
+      displayName: null,
       email: 'player@example.com',
+      onboardingCompleted: false,
       roles: ['USER'],
     });
     expect(syncAuthenticatedUser).toHaveBeenCalledWith(authenticatedUser);

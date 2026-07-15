@@ -8,7 +8,7 @@ Stories begin as `ready`, subject to their declared dependencies. Their individu
 | 002 | Database and model | 001 |
 | 003 | Mobile shell and navigation | 001 |
 | 004 | Auth0 authentication | 002, 003 |
-| 005 | Profile and onboarding | 004 |
+| 005 | Profile and onboarding (`done`) | 004 |
 | 006 | Lichess OAuth | 005 |
 | 007 | Tournament administration | 002, 004 |
 | 008 | Marketplace and details | 003, 007 |
@@ -23,5 +23,6 @@ Stories begin as `ready`, subject to their declared dependencies. Their individu
 | 017 | E2E and release | 012, 014, 016 |
 | 018 | Public landing page | 003 |
 | 019 | Paid tournament registration rollout | 009, 010, 011, 013, 016, 017 |
+| 020 | Terms acceptance | 005 |
 
 Each story includes an objective, scope, acceptance criteria, tasks, and verification. Technical details may change during implementation, but changing invariants or acceptance criteria requires an explicit decision.

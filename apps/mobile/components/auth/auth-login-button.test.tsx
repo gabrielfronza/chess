@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import { AuthLoginButton } from './auth-login-button';
 import { useAuth0Login } from '../../lib/auth/use-auth0-login';
+import { profileApi } from '../../lib/profile-api';
 
 const mockReplace = jest.fn();
 
@@ -12,12 +13,18 @@ jest.mock('../../lib/auth/use-auth0-login', () => ({
   useAuth0Login: jest.fn(),
 }));
 
+jest.mock('../../lib/profile-api', () => ({
+  profileApi: {
+    getMe: jest.fn(),
+  },
+}));
+
 describe('AuthLoginButton', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('starts Auth0 Universal Login and navigates home after a saved session', async () => {
+  it('starts Auth0 Universal Login and navigates home after completed onboarding', async () => {
     const signIn = jest.fn().mockResolvedValue({
       accessToken: 'access-token',
       expiresAt: null,
@@ -25,12 +32,34 @@ describe('AuthLoginButton', () => {
       refreshToken: null,
     });
     (useAuth0Login as jest.Mock).mockReturnValue({ ready: true, signIn });
+    (profileApi.getMe as jest.Mock).mockResolvedValue({
+      onboardingCompleted: true,
+    });
     const { getByRole } = await render(<AuthLoginButton />);
 
     await fireEvent.press(getByRole('button', { name: 'Sign in with Auth0' }));
 
     expect(signIn).toHaveBeenCalled();
+    expect(profileApi.getMe).toHaveBeenCalledWith('access-token');
     expect(mockReplace).toHaveBeenCalledWith('/home');
+  });
+
+  it('navigates incomplete users to onboarding after login', async () => {
+    const signIn = jest.fn().mockResolvedValue({
+      accessToken: 'access-token',
+      expiresAt: null,
+      idToken: null,
+      refreshToken: null,
+    });
+    (useAuth0Login as jest.Mock).mockReturnValue({ ready: true, signIn });
+    (profileApi.getMe as jest.Mock).mockResolvedValue({
+      onboardingCompleted: false,
+    });
+    const { getByRole } = await render(<AuthLoginButton />);
+
+    await fireEvent.press(getByRole('button', { name: 'Sign in with Auth0' }));
+
+    expect(mockReplace).toHaveBeenCalledWith('/onboarding');
   });
 
   it('stays on the current route when the user cancels login', async () => {

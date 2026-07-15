@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { AppBaseEntity } from '../../database/entities';
 import { UserRole } from '../types';
+import { UserProfile } from './user-profile.entity';
 
 @Entity({ name: 'users' })
 export class User extends AppBaseEntity {
@@ -12,4 +13,7 @@ export class User extends AppBaseEntity {
 
   @Column({ array: true, default: () => "ARRAY['USER']::text[]", type: 'text' })
   roles!: UserRole[];
+
+  @OneToOne(() => UserProfile, (profile) => profile.user)
+  profile?: UserProfile | null;
 }

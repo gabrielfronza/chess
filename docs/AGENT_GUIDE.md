@@ -19,6 +19,15 @@
 
 When finished, report: changed files, decisions made, commands run, test results, remaining risks, and verified acceptance criteria.
 
+## GitHub and pull request workflow
+
+- Target pull requests to `main` unless the user explicitly requests another base branch.
+- Prefer the local `gh` CLI for pull request creation after pushing the branch, even when `gh auth status` reports a stale or invalid status. In this repository, `gh pr create` may still succeed because git and the CLI can use different stored credentials.
+- Do not stop at `gh auth status` alone. Treat it as a signal, then attempt the intended non-destructive `gh` command once when the branch has already been pushed and the user asked for a PR.
+- If `gh pr create` fails with an authentication error, ask the user to re-authenticate with `gh auth login` and retry after they confirm.
+- The GitHub connector may not have permission to create pull requests for this private repository. If it returns `Resource not accessible by integration`, fall back to `gh pr create`.
+- Never print tokens or credential details. It is safe to report whether authentication worked or failed.
+
 ## Global Definition of Done
 
 - The story's acceptance criteria are met.

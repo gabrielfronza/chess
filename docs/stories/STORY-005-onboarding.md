@@ -1,6 +1,6 @@
 # STORY-005 — Profile and onboarding
 
-**Status:** ready  
+**Status:** done  
 **Dependencies:** STORY-004
 
 ## Story
@@ -9,15 +9,16 @@ As a new user, I want to complete my required information before participating i
 
 ## Scope
 
-- Form for name, email, country, date of birth, and terms acceptance.
-- `GET/PATCH /me` API, validation, and recording of the terms version and acceptance date.
-- Onboarding state and mandatory redirection after login: incomplete users go to `/onboarding`; users who completed onboarding go to `/welcome`.
-- Display and handle the Auth0 email according to the defined policy.
+- Form for display name, country, and date of birth.
+- `GET/PATCH /me` API and validation for onboarding profile completion.
+- Onboarding state and mandatory redirection after login: incomplete authenticated users go to `/onboarding`; completed authenticated users go to `/home`; unauthenticated users go to `/welcome`.
+- Keep the Auth0 email read-only and outside onboarding edits.
+- Terms content, acceptance history, and re-acceptance flows are out of scope and deferred to STORY-020.
 
 ## Acceptance criteria
 
 - Fields and the configured age-of-majority/age policy are validated on the server.
-- Acceptance stores a version and timestamp, not just a boolean.
+- Story 5 does not record terms acceptance; that belongs to STORY-020.
 - An incomplete user cannot access registration or the wallet.
 - Reopening the app resumes at the correct step.
 - Country is required during onboarding and is persisted on the user profile.
@@ -26,3 +27,13 @@ As a new user, I want to complete my required information before participating i
 ## Verification
 
 Run validation and authorization tests and the complete mobile flow.
+
+Validated during implementation:
+
+- `npx nx run api:test --skip-nx-cache`
+- `npx nx run api:lint --skip-nx-cache`
+- `npx nx run api:build --skip-nx-cache`
+- `npx nx run mobile:test --skip-nx-cache`
+- `npx nx run mobile:lint --skip-nx-cache`
+- `npx nx run mobile:build --skip-nx-cache`
+- `npm run format:check`

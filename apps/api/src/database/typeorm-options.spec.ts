@@ -13,8 +13,12 @@ describe('typeorm options', () => {
     expect(createDataSourceOptions(environment)).toMatchObject({
       type: 'postgres',
       url: environment.DATABASE_URL,
-      entities: [expect.any(Function)],
-      migrations: [expect.any(Function), expect.any(Function)],
+      entities: [expect.any(Function), expect.any(Function)],
+      migrations: [
+        expect.any(Function),
+        expect.any(Function),
+        expect.any(Function),
+      ],
       migrationsTableName: 'typeorm_migrations',
       synchronize: false,
     });

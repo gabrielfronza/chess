@@ -8,6 +8,7 @@ const testDatabaseUrl =
 async function resetFoundationMigrationState(
   dataSource: DataSource,
 ): Promise<void> {
+  await dataSource.query('DROP TABLE IF EXISTS "user_profiles"');
   await dataSource.query('DROP TABLE IF EXISTS "users"');
   await dataSource.query('DROP TABLE IF EXISTS "schema_migration_checks"');
   await dataSource.query(`
@@ -24,6 +25,7 @@ async function resetFoundationMigrationState(
       [
         'CheckDatabaseFoundation1710000000000',
         'CreateUsersForAuth1720000000000',
+        'AddUserOnboardingProfile1730000000000',
       ],
     ],
   );
@@ -55,22 +57,34 @@ describe('database migrations', () => {
     expect(appliedRows).toEqual([{ label: 'story-002-foundation' }]);
 
     const appliedTables = await dataSource.query<
-      Array<{ usersTable: string | null }>
+      Array<{ userProfilesTable: string | null; usersTable: string | null }>
     >(`
-      SELECT to_regclass('public.users') AS "usersTable"
+      SELECT
+        to_regclass('public.user_profiles') AS "userProfilesTable",
+        to_regclass('public.users') AS "usersTable"
     `);
-    expect(appliedTables).toEqual([{ usersTable: 'users' }]);
+    expect(appliedTables).toEqual([
+      { userProfilesTable: 'user_profiles', usersTable: 'users' },
+    ]);
 
+    await dataSource.undoLastMigration();
     await dataSource.undoLastMigration();
     await dataSource.undoLastMigration();
 
     const revertedRows = await dataSource.query<
-      Array<{ foundationTable: string | null; usersTable: string | null }>
+      Array<{
+        foundationTable: string | null;
+        userProfilesTable: string | null;
+        usersTable: string | null;
+      }>
     >(`
       SELECT
         to_regclass('public.schema_migration_checks') AS "foundationTable",
+        to_regclass('public.user_profiles') AS "userProfilesTable",
         to_regclass('public.users') AS "usersTable"
     `);
-    expect(revertedRows).toEqual([{ foundationTable: null, usersTable: null }]);
+    expect(revertedRows).toEqual([
+      { foundationTable: null, userProfilesTable: null, usersTable: null },
+    ]);
   });
 });

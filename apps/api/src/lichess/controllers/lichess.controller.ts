@@ -10,17 +10,12 @@ import {
 import { CurrentUser } from '../../auth/decorators';
 import { AuthGuard } from '../../auth/guards';
 import type { AuthenticatedUser } from '../../auth/types';
-import {
-  LichessAccountResponse,
-  LichessAccountResponseMapper,
-} from '../mappers';
+import { LichessAccountResponseMapper } from '../mappers';
 import { LichessService, validateCompleteLichessOAuth } from '../services';
-
-export type LichessOAuthStartResponse = {
-  authorizationUrl: string;
-  expiresAt: string;
-  state: string;
-};
+import type {
+  LichessAccountResponse,
+  LichessOAuthStartResponse,
+} from '@checkmatetour/contracts';
 
 @Controller('lichess')
 @UseGuards(AuthGuard)

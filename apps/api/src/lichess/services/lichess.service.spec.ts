@@ -41,7 +41,14 @@ describe('LichessService', () => {
   } = {}) {
     const repository = {
       create: jest.fn((account: Partial<LichessAccount>) => account),
-      findOne: jest.fn().mockResolvedValue(existingAccount),
+      findOne: jest.fn(
+        (options: { where?: { revokedAt?: unknown; userId?: string } }) =>
+          Promise.resolve(
+            existingAccount?.revokedAt && options.where?.revokedAt
+              ? null
+              : existingAccount,
+          ),
+      ),
       save,
     };
     const configService = {
@@ -142,12 +149,38 @@ describe('LichessService', () => {
     });
     expect(lichessApiClient.getAccount).toHaveBeenCalledWith('lichess-token');
     expect(secretCipherService.encrypt).toHaveBeenCalledWith('lichess-token');
+    expect(repository.findOne).toHaveBeenCalledTimes(1);
+    expect(repository.findOne.mock.calls[0][0].where?.userId).toBe('user-id');
+    expect(repository.findOne.mock.calls[0][0].where?.revokedAt).toBeDefined();
     expect(repository.save).toHaveBeenCalledWith(
       expect.objectContaining({
         lichessUserId: 'lichess-user-id',
         userId: 'user-id',
       }),
     );
+  });
+
+  it('creates a new link instead of overwriting revoked link history', async () => {
+    const revokedAccount = {
+      id: 'revoked-account-id',
+      revokedAt: new Date('2026-01-01T00:00:00.000Z'),
+      userId: 'user-id',
+    } as LichessAccount;
+    const { repository, service } = createService({
+      existingAccount: revokedAccount,
+    });
+
+    await service.completeOAuth({
+      auth0Subject: 'auth0|abc',
+      code: 'code',
+      state: 'state',
+    });
+
+    expect(repository.findOne.mock.calls[0][0].where?.userId).toBe('user-id');
+    expect(repository.findOne.mock.calls[0][0].where?.revokedAt).toBeDefined();
+    const createdAccount = repository.create.mock.calls[0][0];
+    expect(createdAccount.user?.id).toBe('user-id');
+    expect(createdAccount.userId).toBe('user-id');
   });
 
   it('rejects invalid or expired OAuth state', async () => {

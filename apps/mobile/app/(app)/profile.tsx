@@ -8,6 +8,7 @@ import {
   type StoredAuthSessionState,
   useStoredAuthSession,
 } from '../../lib/auth/use-stored-auth-session';
+import { formatShortDate } from '../../lib/date-format';
 import {
   lichessApi,
   type LichessAccountResponse,
@@ -163,7 +164,7 @@ function LichessAccountCard({
             Connected as {linkedAccount.username}
           </AppText>
           <AppText style={styles.meta}>
-            Linked on {formatDate(linkedAccount.linkedAt)}
+            Linked on {formatShortDate(linkedAccount.linkedAt)}
           </AppText>
           <AppButton accessibilityLabel="Disconnect Lichess" onPress={onRevoke}>
             {isSubmitting ? 'Working...' : 'Disconnect Lichess'}
@@ -182,14 +183,6 @@ function LichessAccountCard({
       {error ? <AppText style={styles.error}>{error}</AppText> : null}
     </View>
   );
-}
-
-function formatDate(value: string): string {
-  return new Intl.DateTimeFormat('en', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  }).format(new Date(value));
 }
 
 const styles = {

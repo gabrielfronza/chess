@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
+import type { UserProfileResponse } from '@checkmatetour/contracts';
 import { CurrentUser } from '../../auth/decorators';
 import { AuthGuard } from '../../auth/guards';
 import type { AuthenticatedUser } from '../../auth/types';
-import { UserResponse, UserResponseMapper } from '../mappers';
+import { UserResponseMapper } from '../mappers';
 import { UsersService, validateUpdateOnboardingProfile } from '../services';
 
 @Controller('me')
@@ -16,7 +17,7 @@ export class UsersController {
   @Get()
   async getMe(
     @CurrentUser() authenticatedUser: AuthenticatedUser,
-  ): Promise<UserResponse> {
+  ): Promise<UserProfileResponse> {
     await this.usersService.syncAuthenticatedUser(authenticatedUser);
     const user = await this.usersService.getAuthenticatedProfile(
       authenticatedUser.sub,
@@ -29,7 +30,7 @@ export class UsersController {
   async updateMe(
     @CurrentUser() authenticatedUser: AuthenticatedUser,
     @Body() body: unknown,
-  ): Promise<UserResponse> {
+  ): Promise<UserProfileResponse> {
     await this.usersService.syncAuthenticatedUser(authenticatedUser);
 
     const user = await this.usersService.updateOnboardingProfile(

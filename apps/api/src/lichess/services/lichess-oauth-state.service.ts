@@ -1,7 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LessThanOrEqual, Repository } from 'typeorm';
 import { LichessOAuthState } from '../entities';
 
 const stateTtlMs = 10 * 60 * 1000;
@@ -31,6 +31,9 @@ export class LichessOAuthStateService {
     const codeVerifier = this.randomUrlSafeSecret(64);
     const expiresAt = new Date(now.getTime() + stateTtlMs);
 
+    await this.statesRepository.delete({
+      expiresAt: LessThanOrEqual(now),
+    });
     await this.statesRepository.save(
       this.statesRepository.create({
         codeVerifier,
@@ -58,21 +61,25 @@ export class LichessOAuthStateService {
     state: string;
     userId: string;
   }): Promise<LichessOAuthState | null> {
-    const oauthState = await this.statesRepository.findOne({
-      where: { stateHash: this.hashState(state), userId },
+    return this.statesRepository.manager.transaction(async (manager) => {
+      const oauthState = await manager.findOne(LichessOAuthState, {
+        lock: { mode: 'pessimistic_write' },
+        where: { stateHash: this.hashState(state), userId },
+      });
+
+      if (
+        !oauthState ||
+        oauthState.consumedAt ||
+        oauthState.expiresAt.getTime() <= now.getTime()
+      ) {
+        return null;
+      }
+
+      oauthState.consumedAt = now;
+      await manager.remove(LichessOAuthState, oauthState);
+
+      return oauthState;
     });
-
-    if (
-      !oauthState ||
-      oauthState.consumedAt ||
-      oauthState.expiresAt.getTime() <= now.getTime()
-    ) {
-      return null;
-    }
-
-    oauthState.consumedAt = now;
-
-    return this.statesRepository.save(oauthState);
   }
 
   hashState(state: string): string {

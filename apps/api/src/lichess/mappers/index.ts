@@ -1,4 +1,1 @@
-export {
-  LichessAccountResponseMapper,
-  type LichessAccountResponse,
-} from './lichess-account-response.mapper';
+export { LichessAccountResponseMapper } from './lichess-account-response.mapper';

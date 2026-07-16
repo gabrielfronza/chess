@@ -82,7 +82,7 @@ export class LichessService {
     );
 
     const existingAccount = await this.lichessAccountsRepository.findOne({
-      where: { userId: user.id },
+      where: { revokedAt: IsNull(), userId: user.id },
     });
     const account =
       existingAccount ??

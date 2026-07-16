@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@checkmatetour/contracts": "file:../../packages/contracts",
     "expo": "~57.0.4",
     "expo-auth-session": "~57.0.2",
     "expo-constants": "~57.0.3",

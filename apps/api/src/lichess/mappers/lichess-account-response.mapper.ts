@@ -1,13 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import type { LichessAccountResponse } from '@checkmatetour/contracts';
 import { LichessAccount } from '../entities';
-
-export type LichessAccountResponse = {
-  id: string;
-  linkedAt: string;
-  lichessUserId: string;
-  revokedAt: string | null;
-  username: string;
-};
 
 @Injectable()
 export class LichessAccountResponseMapper {

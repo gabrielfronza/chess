@@ -1,20 +1,13 @@
+import type {
+  UpdateOnboardingProfileRequest,
+  UserProfileResponse,
+} from '@checkmatetour/contracts';
 import { createBearerHeaders, httpClient } from './http-client';
 
-export type UserProfileResponse = {
-  id: string;
-  country: string | null;
-  dateOfBirth: string | null;
-  displayName: string | null;
-  email: string | null;
-  onboardingCompleted: boolean;
-  roles: Array<'ADMIN' | 'USER'>;
-};
-
-export type UpdateOnboardingProfileRequest = {
-  country: string;
-  dateOfBirth: string;
-  displayName: string;
-};
+export type {
+  UpdateOnboardingProfileRequest,
+  UserProfileResponse,
+} from '@checkmatetour/contracts';
 
 export type ProfileApi = {
   getMe(accessToken: string): Promise<UserProfileResponse>;

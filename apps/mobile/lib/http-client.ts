@@ -6,8 +6,26 @@ type RequestOptions = {
   signal?: AbortSignal;
 };
 
+export class HttpError extends Error {
+  constructor(
+    public readonly status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = 'HttpError';
+  }
+}
+
 export type HttpClient = {
+  delete: <ResponseBody = void>(
+    path: string,
+    options?: RequestOptions,
+  ) => Promise<ResponseBody>;
   get: <ResponseBody>(
+    path: string,
+    options?: RequestOptions,
+  ) => Promise<ResponseBody>;
+  post: <ResponseBody>(
     path: string,
     options?: RequestOptions,
   ) => Promise<ResponseBody>;
@@ -26,10 +44,22 @@ export function createHttpClient(
   fetcher: typeof fetch = fetch,
 ): HttpClient {
   return {
+    async delete<ResponseBody = void>(path: string, options?: RequestOptions) {
+      return request<ResponseBody>(baseUrl, path, fetcher, {
+        ...options,
+        method: 'DELETE',
+      });
+    },
     async get<ResponseBody>(path: string, options?: RequestOptions) {
       return request<ResponseBody>(baseUrl, path, fetcher, {
         ...options,
         method: 'GET',
+      });
+    },
+    async post<ResponseBody>(path: string, options?: RequestOptions) {
+      return request<ResponseBody>(baseUrl, path, fetcher, {
+        ...options,
+        method: 'POST',
       });
     },
     async patch<ResponseBody>(path: string, options?: RequestOptions) {
@@ -45,7 +75,7 @@ async function request<ResponseBody>(
   baseUrl: string,
   path: string,
   fetcher: typeof fetch,
-  options: RequestOptions & { method: 'GET' | 'PATCH' },
+  options: RequestOptions & { method: 'DELETE' | 'GET' | 'PATCH' | 'POST' },
 ): Promise<ResponseBody> {
   const response = await fetcher(joinUrl(baseUrl, path), {
     body: options.body ? JSON.stringify(options.body) : undefined,
@@ -58,10 +88,28 @@ async function request<ResponseBody>(
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+    throw new HttpError(response.status, await getErrorMessage(response));
+  }
+
+  if (response.status === 204) {
+    return undefined as ResponseBody;
   }
 
   return (await response.json()) as ResponseBody;
+}
+
+async function getErrorMessage(response: Response): Promise<string> {
+  try {
+    const body = (await response.json()) as { message?: unknown };
+
+    if (typeof body.message === 'string' && body.message.trim()) {
+      return body.message;
+    }
+  } catch {
+    // The response is not JSON, so use the status-based fallback below.
+  }
+
+  return `Request failed with status ${response.status}`;
 }
 
 export function createBearerHeaders(
@@ -73,8 +121,14 @@ export function createBearerHeaders(
 }
 
 export const httpClient: HttpClient = {
+  delete<ResponseBody = void>(path: string, options?: RequestOptions) {
+    return createHttpClient().delete<ResponseBody>(path, options);
+  },
   get<ResponseBody>(path: string, options?: RequestOptions) {
     return createHttpClient().get(path, options);
+  },
+  post<ResponseBody>(path: string, options?: RequestOptions) {
+    return createHttpClient().post(path, options);
   },
   patch<ResponseBody>(path: string, options?: RequestOptions) {
     return createHttpClient().patch(path, options);

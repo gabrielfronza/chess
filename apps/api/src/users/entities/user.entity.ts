@@ -1,5 +1,6 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { AppBaseEntity } from '../../database/entities';
+import { LichessAccount } from '../../lichess/entities';
 import { UserRole } from '../types';
 import { UserProfile } from './user-profile.entity';
 
@@ -16,4 +17,7 @@ export class User extends AppBaseEntity {
 
   @OneToOne(() => UserProfile, (profile) => profile.user)
   profile?: UserProfile | null;
+
+  @OneToMany(() => LichessAccount, (lichessAccount) => lichessAccount.user)
+  lichessAccounts?: LichessAccount[];
 }

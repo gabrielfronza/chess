@@ -1,6 +1,6 @@
 # STORY-006 — Lichess OAuth linking
 
-**Status:** ready  
+**Status:** done
 **Dependencies:** STORY-005
 
 ## Story

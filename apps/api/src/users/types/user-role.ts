@@ -1,3 +1,8 @@
-export const userRoles = ['USER', 'ADMIN'] as const;
+import type { UserRole } from '@checkmatetour/contracts';
 
-export type UserRole = (typeof userRoles)[number];
+export const userRoles = [
+  'USER',
+  'ADMIN',
+] as const satisfies readonly UserRole[];
+
+export type { UserRole } from '@checkmatetour/contracts';

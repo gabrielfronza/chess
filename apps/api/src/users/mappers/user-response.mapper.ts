@@ -1,20 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import type { UserProfileResponse } from '@checkmatetour/contracts';
 import { User } from '../entities';
-import { UserRole } from '../types';
-
-export type UserResponse = {
-  id: string;
-  country: string | null;
-  dateOfBirth: string | null;
-  displayName: string | null;
-  email: string | null;
-  onboardingCompleted: boolean;
-  roles: UserRole[];
-};
 
 @Injectable()
 export class UserResponseMapper {
-  public toResponse(user: User): UserResponse {
+  public toResponse(user: User): UserProfileResponse {
     const profile = user.profile;
 
     return {

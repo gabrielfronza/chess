@@ -1,8 +1,9 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
+import type { UserProfileResponse } from '@checkmatetour/contracts';
 import { CurrentUser } from '../decorators';
 import { AuthGuard } from '../guards';
 import type { AuthenticatedUser } from '../types';
-import { UserResponse, UserResponseMapper } from '../../users/mappers';
+import { UserResponseMapper } from '../../users/mappers';
 import { UsersService } from '../../users/services';
 
 @Controller('auth')
@@ -16,7 +17,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   async getMe(
     @CurrentUser() authenticatedUser: AuthenticatedUser,
-  ): Promise<UserResponse> {
+  ): Promise<UserProfileResponse> {
     const user =
       await this.usersService.syncAuthenticatedUser(authenticatedUser);
 

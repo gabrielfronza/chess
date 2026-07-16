@@ -19,6 +19,11 @@ describe('validateEnvironment', () => {
       AUTH0_DOMAIN: 'example.auth0.com',
       DATABASE_URL:
         'postgresql://checkmatetour:checkmatetour_local@localhost:54329/checkmatetour_dev',
+      LICHESS_BASE_URL: 'https://lichess.org',
+      LICHESS_CLIENT_ID: 'checkmatetour-local',
+      LICHESS_REDIRECT_URI: 'checkmatetour://lichess/callback',
+      LICHESS_TOKEN_ENCRYPTION_KEY:
+        'checkmatetour-local-lichess-token-key-change-me',
     });
   });
 

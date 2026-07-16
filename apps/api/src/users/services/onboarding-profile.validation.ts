@@ -1,4 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
+import type { UpdateOnboardingProfileRequest } from '@checkmatetour/contracts';
 import { z } from 'zod';
 
 export const minimumUserAge = 18;
@@ -20,9 +21,7 @@ const updateOnboardingProfileSchema = z.object({
   displayName: z.string().trim().min(2).max(80),
 });
 
-export type UpdateOnboardingProfileInput = z.infer<
-  typeof updateOnboardingProfileSchema
->;
+export type UpdateOnboardingProfileInput = UpdateOnboardingProfileRequest;
 
 export function validateUpdateOnboardingProfile(
   value: unknown,

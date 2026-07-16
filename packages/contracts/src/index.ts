@@ -15,3 +15,22 @@ export type UpdateOnboardingProfileRequest = {
   dateOfBirth: string;
   displayName: string;
 };
+
+export type LichessOAuthStartResponse = {
+  authorizationUrl: string;
+  expiresAt: string;
+  state: string;
+};
+
+export type CompleteLichessOAuthRequest = {
+  code: string;
+  state: string;
+};
+
+export type LichessAccountResponse = {
+  id: string;
+  linkedAt: string;
+  lichessUserId: string;
+  revokedAt: string | null;
+  username: string;
+};

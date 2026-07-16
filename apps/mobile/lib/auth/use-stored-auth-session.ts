@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AuthTokenStorage, StoredAuthSession } from './auth-token-storage';
 
-type StoredAuthSessionState = {
+export type StoredAuthSessionState = {
   isAuthenticated: boolean;
   isLoading: boolean;
   session: StoredAuthSession | null;

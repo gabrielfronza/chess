@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import {
+  validateMarketplacePagination,
   validateCancelTournament,
   validateCreateTournament,
   validateTournamentTransition,
@@ -7,6 +8,18 @@ import {
 } from './tournament.validation';
 
 describe('tournament validation', () => {
+  it('validates and defaults marketplace pagination', () => {
+    expect(validateMarketplacePagination({})).toEqual({
+      page: 1,
+      pageSize: 20,
+    });
+    expect(
+      validateMarketplacePagination({ page: '2', pageSize: '10' }),
+    ).toEqual({ page: 2, pageSize: 10 });
+    expect(() => validateMarketplacePagination({ pageSize: 51 })).toThrow(
+      BadRequestException,
+    );
+  });
   it('normalizes a valid draft', () => {
     expect(validateCreateTournament({ name: '  Summer Rapid  ' })).toEqual({
       name: 'Summer Rapid',

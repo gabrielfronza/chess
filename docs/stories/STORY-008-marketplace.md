@@ -1,6 +1,6 @@
 # STORY-008 — Marketplace and details
 
-**Status:** ready  
+**Status:** done  
 **Dependencies:** STORY-003, STORY-007
 
 ## Story
@@ -23,4 +23,13 @@ As a user, I want to discover tournaments and review every condition before join
 
 ## Verification
 
-Run query/filter tests and component tests for the primary states.
+Completed with API query, visibility, pagination, validation, controller, and
+mapper tests; mobile API client, formatting, navigation, list, detail,
+pagination de-duplication, and loading/empty/error/retry state tests.
+
+Validated with:
+
+- `npm run test:unit`
+- `npm run lint`
+- `npm run build`
+- `git diff --check`

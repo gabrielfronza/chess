@@ -1,6 +1,6 @@
 # STORY-007 — Tournament administration
 
-**Status:** ready  
+**Status:** done  
 **Dependencies:** STORY-002, STORY-004
 
 ## Story

@@ -31,4 +31,23 @@ describe('TournamentResponseMapper', () => {
       }),
     );
   });
+
+  it('omits administrative fields from marketplace responses', () => {
+    const tournament = {
+      cancellationReason: null,
+      createdAt: new Date('2026-07-16T12:00:00.000Z'),
+      refundStatus: 'NONE',
+      startsAt: new Date('2026-08-01T12:00:00.000Z'),
+      updatedAt: new Date('2026-07-16T13:00:00.000Z'),
+    } as Tournament;
+
+    expect(
+      new TournamentResponseMapper().toMarketplaceResponse(tournament),
+    ).not.toEqual(
+      expect.objectContaining({
+        cancellationReason: null,
+        refundStatus: 'NONE',
+      }),
+    );
+  });
 });

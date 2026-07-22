@@ -5,6 +5,7 @@ import { validateEnvironment } from './config/environment';
 import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
 import { LichessModule } from './lichess/lichess.module';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { LichessModule } from './lichess/lichess.module';
     DatabaseModule,
     HealthModule,
     LichessModule,
+    TournamentsModule,
   ],
 })
 export class AppModule {}

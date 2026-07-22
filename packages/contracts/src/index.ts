@@ -34,3 +34,50 @@ export type LichessAccountResponse = {
   revokedAt: string | null;
   username: string;
 };
+
+export type TournamentStatus =
+  | "DRAFT"
+  | "PUBLISHED"
+  | "REGISTRATION_CLOSED"
+  | "RUNNING"
+  | "FINISHED"
+  | "CANCELLED";
+
+export type TournamentResponse = {
+  id: string;
+  name: string;
+  description: string | null;
+  startsAt: string | null;
+  durationMinutes: number | null;
+  timeControl: string | null;
+  rounds: number | null;
+  entryFeeCents: number;
+  prizePoolCents: number;
+  rules: string | null;
+  lichessTournamentId: string | null;
+  status: TournamentStatus;
+  registrationCount: number;
+  cancellationReason: string | null;
+  refundStatus: "NONE" | "PENDING";
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateTournamentRequest = {
+  name: string;
+  description?: string;
+  startsAt?: string;
+  durationMinutes?: number;
+  timeControl?: string;
+  rounds?: number;
+  entryFeeCents?: number;
+  prizePoolCents?: number;
+  rules?: string;
+  lichessTournamentId?: string;
+};
+
+export type UpdateTournamentRequest = Partial<CreateTournamentRequest>;
+
+export type CancelTournamentRequest = {
+  reason: string;
+};

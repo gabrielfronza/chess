@@ -43,6 +43,10 @@ const transitionSchema = z
     status: z.enum(['REGISTRATION_CLOSED', 'RUNNING', 'FINISHED']),
   })
   .strict();
+const marketplacePaginationSchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  pageSize: z.coerce.number().int().min(1).max(50).default(20),
+});
 
 export function validateCreateTournament(
   value: unknown,
@@ -76,6 +80,17 @@ export function validateCancelTournament(
 
 export function validateTournamentTransition(value: unknown): TournamentStatus {
   return parse(transitionSchema, value, 'Invalid tournament transition').status;
+}
+
+export function validateMarketplacePagination(value: unknown): {
+  page: number;
+  pageSize: number;
+} {
+  return parse(
+    marketplacePaginationSchema,
+    value,
+    'Invalid marketplace pagination',
+  );
 }
 
 function parse<Output>(

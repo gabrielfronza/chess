@@ -81,3 +81,16 @@ export type UpdateTournamentRequest = Partial<CreateTournamentRequest>;
 export type CancelTournamentRequest = {
   reason: string;
 };
+
+export type MarketplaceTournamentResponse = Omit<
+  TournamentResponse,
+  "cancellationReason" | "refundStatus"
+>;
+
+export type TournamentPageResponse = {
+  items: MarketplaceTournamentResponse[];
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+};

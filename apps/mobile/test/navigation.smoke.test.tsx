@@ -152,11 +152,7 @@ describe('mobile navigation shell', () => {
   it('renders the tournament deep-link route', async () => {
     const { getByText } = await render(<TournamentDetailScreen />);
 
-    expect(getByText('Tournament preview')).toBeTruthy();
-    expect(
-      getByText(
-        'Deep link target for tournament story-003-preview. Details are placeholders until tournament stories own real data.',
-      ),
-    ).toBeTruthy();
+    expect(getByText('Loading tournament')).toBeTruthy();
+    expect(getByText('Loading event conditions.')).toBeTruthy();
   });
 });

@@ -22,6 +22,13 @@ const allowedTransitions: Partial<
   RUNNING: ['FINISHED'],
 };
 
+const marketplaceStatuses: TournamentStatus[] = [
+  'PUBLISHED',
+  'REGISTRATION_CLOSED',
+  'RUNNING',
+  'FINISHED',
+];
+
 @Injectable()
 export class TournamentsService {
   constructor(
@@ -74,6 +81,39 @@ export class TournamentsService {
     return this.tournamentsRepository.find({
       order: { createdAt: 'DESC' },
     });
+  }
+
+  async findMarketplacePage(page: number, pageSize: number) {
+    const [items, total] = await this.tournamentsRepository
+      .createQueryBuilder('tournament')
+      .where('tournament.status IN (:...statuses)', {
+        statuses: marketplaceStatuses,
+      })
+      .orderBy('tournament.startsAt', 'ASC', 'NULLS LAST')
+      .addOrderBy('tournament.id', 'ASC')
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+      .getManyAndCount();
+
+    return {
+      items,
+      page,
+      pageSize,
+      total,
+      totalPages: Math.ceil(total / pageSize),
+    };
+  }
+
+  async findMarketplaceTournament(id: string): Promise<Tournament> {
+    const tournament = await this.tournamentsRepository.findOne({
+      where: { id },
+    });
+
+    if (!tournament || !marketplaceStatuses.includes(tournament.status)) {
+      throw new NotFoundException('Tournament not found');
+    }
+
+    return tournament;
   }
 
   async findOne(id: string): Promise<Tournament> {

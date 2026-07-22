@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthSecurityModule } from '../auth/auth-security.module';
 import { UsersModule } from '../users/users.module';
-import { TournamentsController } from './controllers';
+import { MarketplaceController, TournamentsController } from './controllers';
 import { Tournament, TournamentAuditEvent } from './entities';
 import { AdminGuard } from './guards';
 import { TournamentResponseMapper } from './mappers';
 import { TournamentsService } from './services';
 
 @Module({
-  controllers: [TournamentsController],
+  controllers: [MarketplaceController, TournamentsController],
   imports: [
     AuthSecurityModule,
     TypeOrmModule.forFeature([Tournament, TournamentAuditEvent]),

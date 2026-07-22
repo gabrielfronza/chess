@@ -15,6 +15,7 @@ type AppButtonProps = {
   accessibilityLabel?: string;
   align?: AppButtonAlignment;
   children: string;
+  disabled?: boolean;
   href?: Href;
   onPress?: (event: GestureResponderEvent) => void;
   style?: StyleProp<TextStyle | ViewStyle>;
@@ -30,6 +31,7 @@ export function AppButton({
   accessibilityLabel,
   align = 'start',
   children,
+  disabled = false,
   href,
   onPress,
   style,
@@ -38,10 +40,11 @@ export function AppButton({
     globalStyles.primaryAction,
     alignmentStyles[align],
     style,
+    disabled ? { opacity: 0.5 } : null,
   ];
   const label = <AppText variant="actionLabel">{children}</AppText>;
 
-  if (href) {
+  if (href && !disabled) {
     return (
       <Link
         accessibilityLabel={accessibilityLabel}
@@ -58,6 +61,8 @@ export function AppButton({
     <Pressable
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={onPress}
       style={actionStyle as StyleProp<ViewStyle>}
     >

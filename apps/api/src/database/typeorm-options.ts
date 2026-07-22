@@ -8,6 +8,8 @@ import { CreateUsersForAuth1720000000000 } from './migrations/1720000000000-Crea
 import { AddUserOnboardingProfile1730000000000 } from './migrations/1730000000000-AddUserOnboardingProfile';
 import { CreateLichessOAuthLinking1740000000000 } from './migrations/1740000000000-CreateLichessOAuthLinking';
 import { AllowRelinkingRevokedLichessAccounts1750000000000 } from './migrations/1750000000000-AllowRelinkingRevokedLichessAccounts';
+import { CreateTournamentAdministration1760000000000 } from './migrations/1760000000000-CreateTournamentAdministration';
+import { Tournament, TournamentAuditEvent } from '../tournaments/entities';
 
 const migrations = [
   CheckDatabaseFoundation1710000000000,
@@ -15,6 +17,7 @@ const migrations = [
   AddUserOnboardingProfile1730000000000,
   CreateLichessOAuthLinking1740000000000,
   AllowRelinkingRevokedLichessAccounts1750000000000,
+  CreateTournamentAdministration1760000000000,
 ];
 
 export function createDataSourceOptions(
@@ -23,7 +26,14 @@ export function createDataSourceOptions(
   return {
     type: 'postgres',
     url: environment.DATABASE_URL,
-    entities: [LichessAccount, LichessOAuthState, User, UserProfile],
+    entities: [
+      LichessAccount,
+      LichessOAuthState,
+      Tournament,
+      TournamentAuditEvent,
+      User,
+      UserProfile,
+    ],
     migrations,
     migrationsTableName: 'typeorm_migrations',
     synchronize: false,

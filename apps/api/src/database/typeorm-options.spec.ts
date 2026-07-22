@@ -18,8 +18,11 @@ describe('typeorm options', () => {
         expect.any(Function),
         expect.any(Function),
         expect.any(Function),
+        expect.any(Function),
+        expect.any(Function),
       ],
       migrations: [
+        expect.any(Function),
         expect.any(Function),
         expect.any(Function),
         expect.any(Function),

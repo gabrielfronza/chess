@@ -20,6 +20,10 @@ jest.mock('./lichess/lichess.module', () => ({
   LichessModule: class LichessModule {},
 }));
 
+jest.mock('./tournaments/tournaments.module', () => ({
+  TournamentsModule: class TournamentsModule {},
+}));
+
 describe('AppModule', () => {
   it('registers the health module and global configuration', async () => {
     const module = await Test.createTestingModule({

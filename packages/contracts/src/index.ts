@@ -94,3 +94,41 @@ export type TournamentPageResponse = {
   total: number;
   totalPages: number;
 };
+
+export type WalletEntryType =
+  "CREDIT" | "DEBIT" | "RESERVE" | "RELEASE" | "ADJUSTMENT";
+
+export type WalletBalanceResponse = {
+  availableBalanceCents: number;
+  currency: "USD";
+  reservedBalanceCents: number;
+};
+
+export type WalletEntryResponse = {
+  amountCents: number;
+  createdAt: string;
+  id: string;
+  reason: string | null;
+  reference: string | null;
+  type: WalletEntryType;
+};
+
+export type WalletHistoryPageResponse = {
+  items: WalletEntryResponse[];
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+};
+
+export type AdminWalletAdjustmentRequest = {
+  amountCents: number;
+  idempotencyKey: string;
+  reason: string;
+  reference?: string;
+};
+
+export type AdminWalletAdjustmentResponse = {
+  balance: WalletBalanceResponse;
+  entry: WalletEntryResponse;
+};

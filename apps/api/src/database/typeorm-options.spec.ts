@@ -10,28 +10,16 @@ describe('typeorm options', () => {
   };
 
   it('creates shared DataSource options with migrations and synchronization disabled', () => {
-    expect(createDataSourceOptions(environment)).toMatchObject({
+    const options = createDataSourceOptions(environment);
+
+    expect(options).toMatchObject({
       type: 'postgres',
       url: environment.DATABASE_URL,
-      entities: [
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-      ],
-      migrations: [
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-        expect.any(Function),
-      ],
       migrationsTableName: 'typeorm_migrations',
       synchronize: false,
     });
+    expect(options.entities).toHaveLength(8);
+    expect(options.migrations).toHaveLength(7);
   });
 
   it('enables Nest entity autoloading without changing migration behavior', () => {

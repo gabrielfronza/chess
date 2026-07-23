@@ -40,6 +40,7 @@ When finished, report: changed files, decisions made, commands run, test results
 ## API module organization
 
 - Keep NestJS modules organized by responsibility instead of placing every file at the module root.
+- Every `*.controller.ts` must have a colocated `*.controller.spec.ts`. Keep each controller's behavior in its own spec, including request validation, service delegation, and response mapping where applicable.
 - Use folder names such as `controllers`, `guards`, `decorators`, `providers`, `requests`, `types`, `entities`, `mappers`, and `services` when the module owns those concepts.
 - Each responsibility folder must expose its public production files through an `index.ts` barrel. Import from the folder barrel, for example `import { AuthController } from './controllers';`.
 - Do not export test files from barrels.

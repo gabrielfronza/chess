@@ -71,7 +71,7 @@ export default function AuthenticatedTabsLayout() {
     return <Redirect href="/onboarding" />;
   }
 
-  if (profile.onboardingCompleted && pathname === '/onboarding') {
+  if (profile?.onboardingCompleted && pathname === '/onboarding') {
     return <Redirect href="/home" />;
   }
 

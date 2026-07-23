@@ -10,6 +10,8 @@ import { CreateLichessOAuthLinking1740000000000 } from './migrations/17400000000
 import { AllowRelinkingRevokedLichessAccounts1750000000000 } from './migrations/1750000000000-AllowRelinkingRevokedLichessAccounts';
 import { CreateTournamentAdministration1760000000000 } from './migrations/1760000000000-CreateTournamentAdministration';
 import { Tournament, TournamentAuditEvent } from '../tournaments/entities';
+import { Wallet, WalletEntry } from '../wallet/entities';
+import { CreateWalletLedger1770000000000 } from './migrations/1770000000000-CreateWalletLedger';
 
 const migrations = [
   CheckDatabaseFoundation1710000000000,
@@ -18,6 +20,7 @@ const migrations = [
   CreateLichessOAuthLinking1740000000000,
   AllowRelinkingRevokedLichessAccounts1750000000000,
   CreateTournamentAdministration1760000000000,
+  CreateWalletLedger1770000000000,
 ];
 
 export function createDataSourceOptions(
@@ -33,6 +36,8 @@ export function createDataSourceOptions(
       TournamentAuditEvent,
       User,
       UserProfile,
+      Wallet,
+      WalletEntry,
     ],
     migrations,
     migrationsTableName: 'typeorm_migrations',

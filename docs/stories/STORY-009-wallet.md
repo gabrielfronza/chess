@@ -1,6 +1,6 @@
 # STORY-009 — Wallet and ledger
 
-**Status:** ready  
+**Status:** in progress
 **Dependencies:** STORY-002, STORY-004, STORY-017
 
 ## Story
@@ -19,7 +19,7 @@ As a user, I want to see my balance and transactions with traceability.
 - No monetary value uses floating point.
 - Concurrency cannot produce a negative available balance.
 - An idempotency key cannot create two transactions.
-- History displays amount, type, date, status, and reference.
+- History displays amount, type, date, and reference.
 
 ## Verification
 

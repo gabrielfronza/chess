@@ -8,9 +8,22 @@ const testDatabaseUrl =
 async function resetFoundationMigrationState(
   dataSource: DataSource,
 ): Promise<void> {
-  await dataSource.query('DROP TABLE IF EXISTS "user_profiles"');
-  await dataSource.query('DROP TABLE IF EXISTS "users"');
-  await dataSource.query('DROP TABLE IF EXISTS "schema_migration_checks"');
+  await dataSource.query(`
+    DROP TABLE IF EXISTS
+      "wallet_entries",
+      "wallets",
+      "tournament_audit_events",
+      "tournaments",
+      "lichess_oauth_states",
+      "lichess_accounts",
+      "user_profiles",
+      "users",
+      "schema_migration_checks"
+    CASCADE
+  `);
+  await dataSource.query(
+    'DROP FUNCTION IF EXISTS prevent_wallet_entry_mutation()',
+  );
   await dataSource.query(`
     CREATE TABLE IF NOT EXISTS "typeorm_migrations" (
       "id" SERIAL NOT NULL,
@@ -19,16 +32,7 @@ async function resetFoundationMigrationState(
       CONSTRAINT "PK_typeorm_migrations_id" PRIMARY KEY ("id")
     )
   `);
-  await dataSource.query(
-    'DELETE FROM "typeorm_migrations" WHERE "name" = ANY($1)',
-    [
-      [
-        'CheckDatabaseFoundation1710000000000',
-        'CreateUsersForAuth1720000000000',
-        'AddUserOnboardingProfile1730000000000',
-      ],
-    ],
-  );
+  await dataSource.query('DELETE FROM "typeorm_migrations"');
 }
 
 describe('database migrations', () => {
@@ -57,34 +61,56 @@ describe('database migrations', () => {
     expect(appliedRows).toEqual([{ label: 'story-002-foundation' }]);
 
     const appliedTables = await dataSource.query<
-      Array<{ userProfilesTable: string | null; usersTable: string | null }>
+      Array<{
+        userProfilesTable: string | null;
+        usersTable: string | null;
+        walletEntriesTable: string | null;
+        walletsTable: string | null;
+      }>
     >(`
       SELECT
         to_regclass('public.user_profiles') AS "userProfilesTable",
-        to_regclass('public.users') AS "usersTable"
+        to_regclass('public.users') AS "usersTable",
+        to_regclass('public.wallet_entries') AS "walletEntriesTable",
+        to_regclass('public.wallets') AS "walletsTable"
     `);
     expect(appliedTables).toEqual([
-      { userProfilesTable: 'user_profiles', usersTable: 'users' },
+      {
+        userProfilesTable: 'user_profiles',
+        usersTable: 'users',
+        walletEntriesTable: 'wallet_entries',
+        walletsTable: 'wallets',
+      },
     ]);
 
-    await dataSource.undoLastMigration();
-    await dataSource.undoLastMigration();
-    await dataSource.undoLastMigration();
+    for (let migration = 0; migration < 7; migration += 1) {
+      await dataSource.undoLastMigration();
+    }
 
     const revertedRows = await dataSource.query<
       Array<{
         foundationTable: string | null;
         userProfilesTable: string | null;
         usersTable: string | null;
+        walletEntriesTable: string | null;
+        walletsTable: string | null;
       }>
     >(`
       SELECT
         to_regclass('public.schema_migration_checks') AS "foundationTable",
         to_regclass('public.user_profiles') AS "userProfilesTable",
-        to_regclass('public.users') AS "usersTable"
+        to_regclass('public.users') AS "usersTable",
+        to_regclass('public.wallet_entries') AS "walletEntriesTable",
+        to_regclass('public.wallets') AS "walletsTable"
     `);
     expect(revertedRows).toEqual([
-      { foundationTable: null, userProfilesTable: null, usersTable: null },
+      {
+        foundationTable: null,
+        userProfilesTable: null,
+        usersTable: null,
+        walletEntriesTable: null,
+        walletsTable: null,
+      },
     ]);
   });
 });
